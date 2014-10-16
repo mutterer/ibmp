@@ -1,0 +1,12 @@
+package src.org.micromanager.plugin.serialPortHandling;
+
+public class Reciever {
+
+	public Reciever(){
+		
+	}
+	
+	public void printMsg(String msg){
+		
+	}
+}

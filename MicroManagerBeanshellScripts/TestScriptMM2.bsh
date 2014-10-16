@@ -1,0 +1,12 @@
+
+name = mmc.getCameraDevice();
+mmc.setProperty(name,"Binning",1);
+mmc.setProperty(name,"Exposure","30");
+mmc.setProperty("Camera","CCDTemperature","10");
+mmc.setConfig("Objective","20X");
+mmc.setConfig("Camera","HighRes");
+mmc.defineConfig("Temp", "-4", "Camera", "CCDTemperature", "0");
+mmc.setConfig("Temp","-4");
+gui.initializeGUI();
+gui.message(mmc.getProperty(name,"Binning"));
+gui.initializeGUI();

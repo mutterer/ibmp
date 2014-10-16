@@ -1,0 +1,9 @@
+
+name = mmc.getCameraDevice();
+mmc.setProperty(name,"Binning",1);
+mmc.setProperty(name,"Exposure","30");
+mmc.setConfig("Objective","20X");
+mmc.setConfig("BitDepth","8");
+mmc.defineConfig("Channel", "FITC", "Emission", "State", "2");
+gui.message(mmc.getProperty(name,"Binning"));
+gui.initializeGUI();

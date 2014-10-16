@@ -1,0 +1,5 @@
+mit define config: Gruppenname , ValueOverall -> wenns des value hat werden die folgenden sachen angewandt, Name vor dem bindestrich, name nach dem bindestrich, wert
+
+Gruppen sind Überschriften von verschiedenen Konfigurationen. Wenn man den Value ändert, ändern sich die werte in den Konfigurationen
+
+Wenn nur eine Property in einer Gruppe ist, und die bspw. einen Slider hat, wird im Micromanager Makro fenster ein Slider angezeigt

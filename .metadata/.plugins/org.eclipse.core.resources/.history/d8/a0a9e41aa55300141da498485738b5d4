@@ -1,0 +1,10 @@
+import mmcorej.CMMCore;
+
+
+public class Plugin {
+	CMMCore core = new CMMCore();
+	
+	public Plugin(){
+		core.setExposure(10);
+	}
+}
