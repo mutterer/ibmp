@@ -1,0 +1,5 @@
+Protocol for Arduino:
+
+InputPinNumber + A/B + Amount
+
+??

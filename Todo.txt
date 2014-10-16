@@ -1,0 +1,10 @@
+InputMapper
+Beide Fenster miteinander verbinden
+
+
+Arduino geschickte sachen umschreiben
+-> Sachen Identifiezieren mim Mapper
+
+Mir ausdenken wie ich sachen mappe, wenn ich einmal entschieden hab was ich mappe (also aprés)
+
+Mapper Mapt und schickt dann irgendwie an Reader, der dann mit Mapping liest

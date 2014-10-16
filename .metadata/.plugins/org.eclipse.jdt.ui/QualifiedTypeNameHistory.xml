@@ -4,4 +4,15 @@
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="java.beans.Visibility"/>
 <fullyQualifiedTypeName name="mmcorej.CMMCore"/>
+<fullyQualifiedTypeName name="java.util.Observable"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReciever"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReader"/>
+<fullyQualifiedTypeName name="org.micromanager.api.ScriptInterface"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMappingPropertyWindow"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMapper"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
 </qualifiedTypeNameHistroy>

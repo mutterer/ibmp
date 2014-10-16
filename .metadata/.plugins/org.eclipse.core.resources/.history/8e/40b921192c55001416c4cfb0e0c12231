@@ -1,0 +1,5 @@
+package src.org.micromanager.plugin.serialPortHandling;
+
+public class InputMapper {
+
+}
