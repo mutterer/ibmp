@@ -1,0 +1,50 @@
+package src.org.micromanager.plugin.serialPortHandling;
+
+import mmcorej.CMMCore;
+
+import org.micromanager.api.ScriptInterface;
+
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
+
+
+public class Connecter implements Observer {
+
+
+	private CMMCore core_;
+	private ScriptInterface gui_;
+	private SerialReader serialReader;
+	   
+	   
+	public Connecter(ScriptInterface app){
+		gui_ = app;
+	    core_ = app.getMMCore();
+	    
+	    //TODO Open Mapping
+	    InputMapper mapper = new InputMapper();
+	    
+	    /**
+	     * Map works like this:
+	     * Integer is the Number of the input device: 0 - 13 -> 0 - 9 
+	     * -- 13:LED BigSteps , 12: LED MedSteps , 11:LED SmallSteps, 10:StepsBtn
+	     * A0 - A5 -> 10 - 15
+	     * 
+	     * String Array: 
+	     * 0: Function / CertainChannel / Channel+ / Channel - / CertainProp / PropUp / PropDown / PropDynamic
+	     * Function: 1 Function
+	     * CertainChannel: 1 GroupName 2 ChannelName
+	     * Channel +/-: 1 GroupName
+	     * CertainProp: 1 DeviceName(label) 2 PropertyName 3 Value
+	     * PropUp/Down: 1 DeviceName(label) 2 PropertyName 3 SmallValue 4 MedValue 5 BigValue
+	     * PropDynamic: 1 DeviceName(label) 2 PropertyName 3 Value
+	     */
+	    HashMap<Integer, String[]> mappings = mapper.returnMappings();
+	}
+
+	@Override
+	public void update(Observable object, Object arg1) {
+		//if you get a signal convert it with the hashmap
+		
+	}
+}

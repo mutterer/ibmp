@@ -1,0 +1,34 @@
+package src.org.micromanager.plugin.serialPortHandling;
+
+import mmcorej.CMMCore;
+
+import org.micromanager.api.ScriptInterface;
+
+import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
+
+
+public class SerialReciever implements Observer {
+
+
+	private CMMCore core_;
+	private ScriptInterface gui_;
+	private SerialReader serialReader;
+	   
+	   
+	public SerialReciever(ScriptInterface app){
+		gui_ = app;
+	    core_ = app.getMMCore();
+	    
+	    //TODO Open Mapping
+	    InputMapper mapper = new InputMapper();
+	    HashMap<Integer, String[]> mappings = mapper.returnMappings();
+	}
+
+	@Override
+	public void update(Observable object, Object arg1) {
+		
+		
+	}
+}

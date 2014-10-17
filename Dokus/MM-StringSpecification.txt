@@ -1,0 +1,13 @@
+0: Function / CertainChannel / Channel+ / Channel - / CertainProp / PropUp / PropDown / PropDynamic
+
+Function: 1 Function
+
+CertainChannel: 1 GroupName 2 ChannelName
+
+Channel +/-: 1 GroupName
+
+CertainProp: 1 DeviceName(label) 2 PropertyName 3 Value
+
+PropUp/Down: 1 DeviceName(label) 2 PropertyName 3 SmallValue 4 MedValue 5 BigValue
+
+PropDynamic: 1 DeviceName(label) 2 PropertyName 3 Value 4 MinValue 5 MaxValue
