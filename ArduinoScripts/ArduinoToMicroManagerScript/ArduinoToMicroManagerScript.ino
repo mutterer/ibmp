@@ -38,26 +38,44 @@ void loop() {
   //The signal goes from 0 to a cap of 999 to not have to deal with overload
   if(!(analogRead(A0) - aVals[0] <2 && analogRead(A0) - aVals[0] > -2)){
     aVals[0] = analogRead(A0);
+    if(aVal[0] > 999){
+      aVal[0] = 999;
+    }
     Serial.println(String((10*1000) + aVals[0]));
   }/*
     if(!(analogRead(A1) - aVals[1] <2 && analogRead(A1) - aVals[1] > -2)){
     aVals[1] = analogRead(A1);
+    if(aVal[1] > 999){
+      aVal[0] = 999;
+    }
     Serial.println(String((11*1000) + aVals[1]));
   }
     if(!(analogRead(A2) - aVals[2] <2 && analogRead(A2) - aVals[2] > -2)){
     aVals[2] = analogRead(A2);
+    if(aVal[2] > 999){
+      aVal[0] = 999;
+    }
     Serial.println(String((12*1000) + aVals[2]));
   }
     if(!(analogRead(A3) - aVals[3] <2 && analogRead(A3) - aVals[3] > -2)){
     aVals[3] = analogRead(A3);
+    if(aVal[3] > 999){
+      aVal[0] = 999;
+    }
     Serial.println(String((13*1000) + aVals[3]));
   }
     if(!(analogRead(A4) - aVals[4] <2 && analogRead(A4) - aVals[4] > -2)){
     aVals[4] = analogRead(A4);
+    if(aVal[4] > 999){
+      aVal[0] = 999;
+    }
     Serial.println(String((14*10000) + aVals[4]));
   }
     if(!(analogRead(A5) - aVals[5] <2 && analogRead(A5) - aVals[5] > -2)){
     aVals[5] = analogRead(A5);
+    if(aVal[5] > 999){
+      aVal[0] = 999;
+    }
     Serial.println(String((15*1000) + aVals[5]));
   }*/
   }

@@ -1,9 +1,6 @@
 package src.org.micromanager.plugin.serialPortHandling;
 
 import src.org.micromanager.plugin.*;
-import mmcorej.CMMCore;
-
-import org.micromanager.api.ScriptInterface;
 
 import java.util.HashMap;
 import java.util.Observable;
@@ -12,10 +9,6 @@ import java.util.Observer;
 
 public class Connecter implements Observer {
 
-
-	private CMMCore core_;
-	private ScriptInterface gui_;
-	private SerialReader serialReader;
 	private HashMap<Integer, String[]> mappings;
 	private MicroManagerPlugin microManager;
 	
@@ -36,9 +29,8 @@ public class Connecter implements Observer {
 	int stepSize = MEDSTEPS;
 	   
 	   
-	public Connecter(ScriptInterface app){
-		gui_ = app;
-	    core_ = app.getMMCore();
+	public Connecter(MicroManagerPlugin mm){
+	    microManager = mm;
 	    
 	    //TODO Open Mapping
 	    InputMapper mapper = new InputMapper();
@@ -59,7 +51,7 @@ public class Connecter implements Observer {
 	     * PropDynamic: 1 DeviceName(label) 2 PropertyName 3 Value 4 MinValue 5 MaxValue
 	     * 
 	     * Values SenDed:
-	     * ButtonMapValue*10000 + (Value if Analog)
+	     * ButtonMapValue*1000 + (Value if Analog) value geHt vOn 0 - 999
 	     */
 	    mappings = mapper.returnMappings();
 	}
@@ -73,7 +65,7 @@ public class Connecter implements Observer {
 		int signal;
 		try{
 		signal = (Integer) signalObject;
-		buttonNR = (int)Math.floor(signal /10000);
+		buttonNR = (int)Math.floor(signal /1000);
 		}
 		catch(Exception e2){
 			e2.printStackTrace();
@@ -89,14 +81,11 @@ public class Connecter implements Observer {
 		}
 		String[] args = mappings.get(buttonNR);
 		switch(commandInt){
-		
-		//TODO These Cases
-		
 			case -1:
 				System.out.println("-1");
 				break;
 			case FUNCTION:
-				
+				//TODO This Case
 				break;
 			case CERTAINCHANNEL:
 				microManager.setConfig(args[1], args[2]);
@@ -114,9 +103,9 @@ public class Connecter implements Observer {
 				microManager.stepProperty(args[1], args[2], stepSize);
 				break;
 			case PROPDYNAMIC:
-				int valueSignal = signal -10000* (int)(Math.floor(signal/10000));
+				int valueSignal = signal -1000* (int)(Math.floor(signal/1000));
 				double factor = Integer.parseInt(args[4]) - Integer.parseInt(args[3]);
-				factor /= 1024;
+				factor /= 999;
 				double valueMM = (valueSignal*factor)+ Integer.parseInt(args[3]);
 				microManager.setProperty(args[1], args[2], ""+valueMM);
 				break;

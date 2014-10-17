@@ -14,10 +14,6 @@ public class InputMapper {
 	private InputMappingButtonsWindow buttonsWindow;
 	private InputMappingPropertyWindow propertyWindow;
 	
-	public static void main(String[] args) {
-		InputMapper iM = new InputMapper();
-		
-	}
 	
 	public InputMapper(){
 		/*OldCode

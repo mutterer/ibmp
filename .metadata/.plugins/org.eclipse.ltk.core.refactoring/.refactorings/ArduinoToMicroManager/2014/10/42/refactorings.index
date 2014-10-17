@@ -12,3 +12,6 @@
 1413532558589	Rename type 'SerialReciever'
 1413535430221	Rename local variable 'arg1'
 1413538818371	Rename local variable 'signal'
+1413550252654	Change method 'Connecter'
+1413550870773	Rename field 'core'
+1413550875182	Rename field 'gui'

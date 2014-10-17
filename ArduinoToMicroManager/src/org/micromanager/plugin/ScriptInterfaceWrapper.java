@@ -1,6 +1,5 @@
 package src.org.micromanager.plugin;
 
-import mmcorej.*;
 
 public class ScriptInterfaceWrapper {
 

@@ -9,10 +9,13 @@
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReader"/>
 <fullyQualifiedTypeName name="org.micromanager.api.ScriptInterface"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMappingPropertyWindow"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMapper"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
+<fullyQualifiedTypeName name="java.awt.BorderLayout"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMappingPropertyWindow"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
 </qualifiedTypeNameHistroy>
