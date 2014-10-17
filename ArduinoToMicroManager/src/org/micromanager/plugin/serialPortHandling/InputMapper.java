@@ -2,6 +2,7 @@ package src.org.micromanager.plugin.serialPortHandling;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import mmcorej.CMMCore;
 
@@ -14,24 +15,27 @@ public class InputMapper {
 	private InputMappingPropertyWindow propertyWindow;
 	
 	public static void main(String[] args) {
-		InputMapper iM = new InputMapper(null);
+		InputMapper iM = new InputMapper();
 		
 	}
 	
-	public InputMapper(ScriptInterface app){
-		try{
+	public InputMapper(){
+		/*OldCode
+		 * try{
 			gui_ = app;
 			core_ = gui_.getMMCore();
 		}
 		catch(NullPointerException nPe){
 			nPe.printStackTrace();
-		}
+		}*/
 		buttonsWindow = new InputMappingButtonsWindow();
+		propertyWindow = new InputMappingPropertyWindow();
 		
 		
 		/*Making an Array of String Arrays which look like this:
 		 0:DeviceName ; 1:deviceProperty0; 2:deviceProperty1; ...
 		*/
+		/*Code for doing things without Static Core
 		try {
 			//String[] devices = core_.getDeviceAdapterNames().toArray();
 			//String[][] deviceProps = new String[devices.length][];
@@ -44,8 +48,15 @@ public class InputMapper {
 			propertyWindow = new InputMappingPropertyWindow(deviceProps);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
+	
+	public HashMap<Integer, String[]> returnMappings(){
+		//TODO this method
+		return null;
+	}
+	
+	
 	
 	
 }

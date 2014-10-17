@@ -12,12 +12,12 @@ public class ScriptInterfaceWrapper {
 		core_ = gui_.getMMCore();
 	}
 	
-	public static StrVector getDevicePropertyNames(String label) throws Exception{
-		return core_.getDevicePropertyNames(label);
+	public static String[] getDevicePropertyNames(String label) throws Exception{
+		return core_.getDevicePropertyNames(label).toArray();
 	}
 	
-	public static StrVector getDeviceAdapterNames() throws Exception{
-		return core_.getDeviceAdapterNames();
+	public static String[] getDeviceAdapterNames() throws Exception{
+		return core_.getDeviceAdapterNames().toArray();
 	}
 	
 }

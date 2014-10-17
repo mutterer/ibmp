@@ -11,14 +11,14 @@ public class MicroManagerPlugin implements MMPlugin {
    private CMMCore core;
    private ScriptInterface gui;
    private pluginWindow window;
-   private SerialReciever serialReciever;
+   private Connecter serialReciever;
    private SerialReader serialReader;
 
    public void setApp(ScriptInterface app) {
 	  ScriptInterfaceWrapper.setApp(app);
 	  gui = app;
 	  core = app.getMMCore();
-      serialReciever = new SerialReciever(gui);
+      serialReciever = new Connecter(gui);
       serialReader = new SerialReader();
       serialReader.addObserver(serialReciever);
       if (window == null)
@@ -36,6 +36,26 @@ public class MicroManagerPlugin implements MMPlugin {
 		}
    }*/
 
+   public void setProperty(String label, String propertyName, String value){
+	   //TODO this Method
+   }
+   
+   public void setConfig(String label, String value){
+	 //TODO this Method
+   }
+   
+   public void goUpConfig(String label){
+	 //TODO this Method
+   }
+   
+   public void goDownConfig(String label){
+	 //TODO this Method
+   }
+   
+   public void stepProperty(String label, String propertyName, int amount){
+	//TODO this Method   
+   }
+   
    public void dispose() {
    }
 
