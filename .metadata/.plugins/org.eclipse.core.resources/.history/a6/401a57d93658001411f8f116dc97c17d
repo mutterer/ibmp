@@ -1,0 +1,3 @@
+<project name="Plugin_Test" default="jar">
+	<import file="../javapluginbuild.xml"/>
+</project>

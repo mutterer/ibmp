@@ -18,4 +18,6 @@
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMappingPropertyWindow"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.MicroManagerPlugin"/>
+<fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.Connecter"/>
 </qualifiedTypeNameHistroy>

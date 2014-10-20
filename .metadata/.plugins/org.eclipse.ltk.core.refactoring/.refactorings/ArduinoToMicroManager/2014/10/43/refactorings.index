@@ -1,0 +1,16 @@
+1413791825710	Rename package 'src.org.micromanager.plugin'
+1413792117695	Rename resource 'ExampleFrame.form'
+1413792868206	Delete element
+1413793111265	Delete element
+1413794500481	Delete element
+1413795554446	Rename package 'src.org.micromanager.plugin.serialPortHandling'
+1413795566475	Rename package 'src.org.micromanager.ArduinoToMicroManager'
+1413795575111	Delete element
+1413805183290	Rename method 'setApp'
+1413805506386	Copy compilation unit
+1413806840250	Copy package
+1413807652834	Copy compilation unit
+1413809408886	Delete element
+1413809411057	Delete element
+1413809487630	Move compilation unit
+1413812941324	Rename type 'ArduinoRemoteWindow'

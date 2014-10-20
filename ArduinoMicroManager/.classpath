@@ -2,12 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ArduinoMicroManager/libs"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ArduinoToMicroManager/libs/dll"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="libs/RXTXcomm.jar"/>
-	<classpathentry kind="lib" path="libs/rxtxSerial.dll"/>
-	<classpathentry kind="lib" path="libs/MMCoreJ.jar"/>
+	<classpathentry kind="lib" path="/ArduinoToMicroManager/libs/RXTXcomm.jar"/>
+	<classpathentry kind="lib" path="/ArduinoToMicroManager/libs/MMCoreJ.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

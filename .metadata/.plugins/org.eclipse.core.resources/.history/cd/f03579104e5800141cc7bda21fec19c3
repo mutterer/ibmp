@@ -1,0 +1,14 @@
+package src.org.micromanager.plugin;
+
+import src.org.micromanager.serialPortHandling.*;
+
+public class MainTester {
+
+	
+	public static void main(String[] args) {
+		MicroManagerPlugin mmp = new MicroManagerPlugin();
+		Connecter sc = new Connecter(mmp);
+		SerialReader sr = new SerialReader();
+		
+	}
+}
