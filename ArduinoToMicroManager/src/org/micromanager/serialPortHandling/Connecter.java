@@ -1,4 +1,4 @@
-package src.org.micromanager.plugin.serialPortHandling;
+package src.org.micromanager.serialPortHandling;
 
 import src.org.micromanager.plugin.*;
 
@@ -30,7 +30,9 @@ public class Connecter implements Observer {
 	   
 	   
 	public Connecter(MicroManagerPlugin mm){
-	    microManager = mm;
+
+		microManager = mm;
+	    
 	    
 	    //TODO Open Mapping
 	    InputMapper mapper = new InputMapper();
@@ -53,7 +55,13 @@ public class Connecter implements Observer {
 	     * Values SenDed:
 	     * ButtonMapValue*1000 + (Value if Analog) value geHt vOn 0 - 999
 	     */
-	    mappings = mapper.returnMappings();
+	    
+
+	    mappings = new HashMap<Integer, String[]>();
+	    //TODO change this back
+	    //mappings = mapper.returnMappings();
+	    mappings.put(2,new String[]{"4","Camera","CCDTemperature","-30"});
+
 	}
 
 	@Override
@@ -69,10 +77,12 @@ public class Connecter implements Observer {
 		}
 		catch(Exception e2){
 			e2.printStackTrace();
-			System.out.println("Signal was not a number");
+			System.out.println("Signal was not a number in Connecter.update");
+			//make Signal a Number
 			signal =10001;
 		}
 		try{
+			//Retrieve Function of Button from HashMap
 			commandInt = Integer.parseInt(mappings.get(buttonNR)[0]);
 		}
 		catch(Exception e){

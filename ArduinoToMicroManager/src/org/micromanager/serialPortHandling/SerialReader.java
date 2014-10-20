@@ -1,4 +1,4 @@
-package src.org.micromanager.plugin.serialPortHandling;
+package src.org.micromanager.serialPortHandling;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,7 +11,7 @@ import java.util.Enumeration;
 import java.util.Observable;
 
 
-public class SerialReader extends Observable implements SerialPortEventListener {
+public class SerialReader extends Observable {
 	SerialPort serialPort;
         /** The port we're normally going to use. */
 	private static final String PORT_NAME[] = { 
@@ -66,7 +66,7 @@ public class SerialReader extends Observable implements SerialPortEventListener 
 			output = serialPort.getOutputStream();
 
 			// add this as an event listener - Eventhandling is below
-			serialPort.addEventListener(this);
+			serialPort.addEventListener((SerialPortEventListener) this);
 			serialPort.notifyOnDataAvailable(true);
 		} catch (Exception e) {
 			System.err.println(e.toString());

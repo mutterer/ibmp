@@ -6,7 +6,7 @@ public class ScriptInterfaceWrapper {
 	private static org.micromanager.api.ScriptInterface gui_;
 	private static mmcorej.CMMCore core_;
 	
-	public static void setApp(org.micromanager.api.ScriptInterface gui){
+	public static void initialize(org.micromanager.api.ScriptInterface gui){
 		gui_ = gui;
 		core_ = gui_.getMMCore();
 	}

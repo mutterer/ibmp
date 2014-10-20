@@ -1,31 +1,36 @@
 package src.org.micromanager.plugin;
 
+import java.io.Console;
+
 import mmcorej.CMMCore;
 
 import org.micromanager.api.MMPlugin;
 import org.micromanager.api.ScriptInterface;
 
-import src.org.micromanager.plugin.serialPortHandling.*;
+import src.org.micromanager.serialPortHandling.*;
 
 public class MicroManagerPlugin implements MMPlugin {
 	public static String menuName = "ArduinoRemote";
 	public static String tooltipDescription = "A plugin to use MicroManager with an Arduino Box";
 	private CMMCore core_;
 	private ScriptInterface gui_;
-	private pluginWindow window;
+	private ArdWindow window;
 	private Connecter serialReciever;
 	private SerialReader serialReader;
 
 	public void setApp(ScriptInterface app) {
-		ScriptInterfaceWrapper.setApp(app);
+
 		gui_ = app;
 		core_ = app.getMMCore();
+		ScriptInterfaceWrapper.initialize(app);
+		if (window == null)
+			window = new ArdWindow(this);
+		window.setVisible(true);
+		//Error HereVVVVVVVVVVVVVVVVVVVV at least
 		serialReciever = new Connecter(this);
+		//Here AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 		serialReader = new SerialReader();
 		serialReader.addObserver(serialReciever);
-		if (window == null)
-			window = new pluginWindow(gui_);
-		window.setVisible(true);
 	}
 
 	/*
@@ -42,6 +47,7 @@ public class MicroManagerPlugin implements MMPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		gui_.refreshGUI();
 	}
 
 	public void setConfig(String label, String value) {
@@ -51,6 +57,7 @@ public class MicroManagerPlugin implements MMPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		gui_.refreshGUI();
 	}
 
 	public void goUpConfig(String label) {
@@ -77,6 +84,7 @@ public class MicroManagerPlugin implements MMPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		gui_.refreshGUI();
 	}
 
 	public void goDownConfig(String label) {
@@ -104,6 +112,7 @@ public class MicroManagerPlugin implements MMPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		gui_.refreshGUI();
 	}
 
 	public void stepProperty(String label, String propName, int amount) {
@@ -118,6 +127,7 @@ public class MicroManagerPlugin implements MMPlugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		gui_.refreshGUI();
 	}
 
 	public void dispose() {

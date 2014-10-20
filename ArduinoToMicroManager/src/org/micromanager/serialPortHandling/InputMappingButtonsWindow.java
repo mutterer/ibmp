@@ -1,4 +1,4 @@
-package src.org.micromanager.plugin.serialPortHandling;
+package src.org.micromanager.serialPortHandling;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

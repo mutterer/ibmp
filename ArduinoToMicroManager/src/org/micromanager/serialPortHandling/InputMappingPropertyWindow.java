@@ -1,4 +1,4 @@
-package src.org.micromanager.plugin.serialPortHandling;
+package src.org.micromanager.serialPortHandling;
 
 import src.org.micromanager.plugin.*;
 
@@ -13,12 +13,12 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JSplitPane;
 
-import src.org.micromanager.plugin.ScriptInterfaceWrapper;
-
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
