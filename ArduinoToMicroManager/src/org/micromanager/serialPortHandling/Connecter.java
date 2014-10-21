@@ -64,7 +64,7 @@ public class Connecter implements Observer {
 	    //TODO change this back
 	    //mappings = mapper.returnMappings();
 	    //mappings.put(2,new String[]{"4","Camera","CCDTemperature","-30"});
-	    mappings.put(2,new String[]{"3","Channel"});
+	    mappings.put(2,new String[]{"3","Illumination"});
 	    mappings.put(10,new String[]{"6","Camera","CCDTemperature","-50","5"});
 
 	}

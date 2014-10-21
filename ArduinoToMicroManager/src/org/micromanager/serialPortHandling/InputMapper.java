@@ -11,8 +11,6 @@ import org.micromanager.api.ScriptInterface;
 public class InputMapper {
 	private CMMCore core_;
 	private ScriptInterface gui_;
-	private InputMappingButtonsWindow buttonsWindow;
-	private InputMappingPropertyWindow propertyWindow;
 	
 	
 	public InputMapper(){
@@ -24,8 +22,6 @@ public class InputMapper {
 		catch(NullPointerException nPe){
 			nPe.printStackTrace();
 		}*/
-		buttonsWindow = new InputMappingButtonsWindow();
-		propertyWindow = new InputMappingPropertyWindow();
 		
 		
 		/*Making an Array of String Arrays which look like this:
