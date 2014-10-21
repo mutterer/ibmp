@@ -10,4 +10,4 @@ CertainProp: 1 DeviceName(label) 2 PropertyName 3 Value
 
 PropUp/Down: 1 DeviceName(label) 2 PropertyName 3 SmallValue 4 MedValue 5 BigValue
 
-PropDynamic: 1 DeviceName(label) 2 PropertyName 3 Value 4 MinValue 5 MaxValue
+PropDynamic: 1 DeviceName(label) 2 PropertyName 3 MinValue 4 MaxValue
