@@ -1,8 +1,7 @@
 package src.org.micromanager.plugin;
 
-import java.io.Console;
-
 import mmcorej.CMMCore;
+
 
 import org.micromanager.api.MMPlugin;
 import org.micromanager.api.ScriptInterface;
@@ -26,11 +25,14 @@ public class MicroManagerPlugin implements MMPlugin {
 		if (window == null)
 			window = new ArdWindow(this);
 		window.setVisible(true);
-		//Error HereVVVVVVVVVVVVVVVVVVVV at least
 		serialReciever = new Connecter(this);
-		//Here AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+		ArdWindow.println("2.Connecter Initialized");
 		serialReader = new SerialReader();
+		serialReader.initialize();
+		ArdWindow.println("4.SerialReader Initialized");
 		serialReader.addObserver(serialReciever);
+		ArdWindow.println(""+serialReader.countObservers() + " Observers added to the Reader!");
+		ArdWindow.println("5.Done");
 	}
 
 	/*
@@ -75,6 +77,7 @@ public class MicroManagerPlugin implements MMPlugin {
 				break;
 			}
 		}
+		//If out of bounds
 		configIndex++;
 		if (configIndex == configs.length) {
 			configIndex = 0;
@@ -102,9 +105,10 @@ public class MicroManagerPlugin implements MMPlugin {
 				break;
 			}
 		}
+		//If out of bounds
 		configIndex--;
 		if (configIndex == -1) {
-			configIndex = configs.length;
+			configIndex = configs.length - 1;
 		}
 
 		try {

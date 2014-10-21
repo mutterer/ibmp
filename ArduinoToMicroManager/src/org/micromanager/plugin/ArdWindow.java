@@ -7,11 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.ScrollPane;
+
 import javax.swing.*;
 
 public class ArdWindow extends JFrame {
@@ -19,6 +22,7 @@ public class ArdWindow extends JFrame {
 	private JPanel contentPane;
 	private MicroManagerPlugin mm;
 	private JTextArea textField;
+	private JScrollPane scroller;
 	private static TextAreaPrintStream ps;
 
 	/**
@@ -69,7 +73,9 @@ public class ArdWindow extends JFrame {
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textField.gridx = 0;
 		gbc_textField.gridy = 2;
-		panel.add(textField, gbc_textField);
+		scroller = new JScrollPane(textField);
+		
+		panel.add(scroller, gbc_textField);
 		textField.setColumns(10);
 		
 		ps = new TextAreaPrintStream(textField,System.out);
@@ -77,6 +83,9 @@ public class ArdWindow extends JFrame {
 	
 	public static void print(String input){
 		ps.print(input);
+	}
+	public static void println(String input){
+		ps.print(input + "\n");
 	}
 
 }

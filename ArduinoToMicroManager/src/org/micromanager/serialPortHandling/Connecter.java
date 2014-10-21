@@ -37,6 +37,9 @@ public class Connecter implements Observer {
 	    //TODO Open Mapping
 	    InputMapper mapper = new InputMapper();
 	    
+		//FIXME
+		ArdWindow.println("1.Initializing Connecter");
+	    
 	    /**
 	     * Map works like this:
 	     * Integer is the Number of the input device: 0 - 13 -> 0 - 9 
@@ -50,7 +53,7 @@ public class Connecter implements Observer {
 	     * Channel +/-: 1 GroupName
 	     * CertainProp: 1 DeviceName(label) 2 PropertyName 3 Value
 	     * PropUp/Down: 1 DeviceName(label) 2 PropertyName 3 SmallValue 4 MedValue 5 BigValue
-	     * PropDynamic: 1 DeviceName(label) 2 PropertyName 3 Value 4 MinValue 5 MaxValue
+	     * PropDynamic: 1 DeviceName(label) 2 PropertyName 3 MinValue 4 MaxValue
 	     * 
 	     * Values SenDed:
 	     * ButtonMapValue*1000 + (Value if Analog) value geHt vOn 0 - 999
@@ -60,25 +63,30 @@ public class Connecter implements Observer {
 	    mappings = new HashMap<Integer, String[]>();
 	    //TODO change this back
 	    //mappings = mapper.returnMappings();
-	    mappings.put(2,new String[]{"4","Camera","CCDTemperature","-30"});
+	    //mappings.put(2,new String[]{"4","Camera","CCDTemperature","-30"});
+	    mappings.put(2,new String[]{"3","Channel"});
+	    mappings.put(10,new String[]{"6","Camera","CCDTemperature","-50","5"});
 
 	}
 
-	@Override
+	
 	public void update(Observable object, Object signalObject) {
-		//if you get a signal convert it with the hashmap
+		//FIXME
+		ArdWindow.println("..Recieving");
 		
+		//if you get a signal convert it with the hashmap
 		int commandInt = -1;
 		int buttonNR = -1;
 		int signal;
 		try{
-		signal = (Integer) signalObject;
+		signal = Integer.parseInt((String)signalObject);
 		buttonNR = (int)Math.floor(signal /1000);
+		ArdWindow.println("btnnr: "+ buttonNR);
 		}
 		catch(Exception e2){
 			e2.printStackTrace();
-			System.out.println("Signal was not a number in Connecter.update");
-			//make Signal a Number
+			ArdWindow.println("Signal was not a number in [Connecter.update()]");
+			//make Signal a Number if it isn't
 			signal =10001;
 		}
 		try{
@@ -87,7 +95,8 @@ public class Connecter implements Observer {
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			System.out.println("Didnt manage to parse String to Int in Connecter.update");
+			ArdWindow.println("Didnt manage to parse String to Int in [Connecter.update()]");
+			ArdWindow.println("Maybe you haven't configured this input");
 		}
 		String[] args = mappings.get(buttonNR);
 		switch(commandInt){

@@ -2,16 +2,19 @@ package src.org.micromanager.serialPortHandling;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
+
 import gnu.io.CommPortIdentifier; 
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent; 
 import gnu.io.SerialPortEventListener; 
+
 import java.util.Enumeration;
 import java.util.Observable;
 
+import src.org.micromanager.plugin.ArdWindow;
 
-public class SerialReader extends Observable {
+
+public class SerialReader extends Observable implements SerialPortEventListener{
 	SerialPort serialPort;
         /** The port we're normally going to use. */
 	private static final String PORT_NAME[] = { 
@@ -21,19 +24,22 @@ public class SerialReader extends Observable {
 			"COM3", // Windows
 	};
 	private BufferedReader input;
-	private OutputStream output;
 	/** Milliseconds to block while waiting for port open */
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 	
+	private String serialInput;
 
 	private Thread listenerThread;
 	
 	
 	public void initialize() {
+		
+
 		//Identifies Ports
 		CommPortIdentifier portId = null;
 		//Getting together all the different Ports
+		@SuppressWarnings("rawtypes")
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
 		//First, Find an instance of serial port as set in PORT_NAMES.
@@ -47,9 +53,11 @@ public class SerialReader extends Observable {
 			}
 		}
 		if (portId == null) {
-			System.out.println("Could not find port.");
+			ArdWindow.println("Could not find port.");
 			return;
 		}
+		
+		ArdWindow.println("3.Initializing SerialReader");
 
 		try {
 			// open serial port, and use class name for the appName.
@@ -63,10 +71,9 @@ public class SerialReader extends Observable {
 
 			// open the streams
 			input = new BufferedReader(new InputStreamReader(serialPort.getInputStream()));
-			output = serialPort.getOutputStream();
 
 			// add this as an event listener - Eventhandling is below
-			serialPort.addEventListener((SerialPortEventListener) this);
+			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
 		} catch (Exception e) {
 			System.err.println(e.toString());
@@ -81,6 +88,7 @@ public class SerialReader extends Observable {
 		};
 		listenerThread.start();
 		
+		notifyObservers(serialInput);
 		
 	}
 
@@ -97,19 +105,20 @@ public class SerialReader extends Observable {
 	/**
 	 * Handle an event on the serial port. Read the data and print it.
 	 */
+	@Override
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-					String inputLine=input.readLine();
-					if(inputLine.equals("off")){
-						this.close();
-					}
-					System.out.println(inputLine);
-					notifyObservers(inputLine);
+					serialInput=input.readLine();
+					System.out.println(serialInput);
+					ArdWindow.print("Sending.");
+					ArdWindow.print(". ");
+					setChanged();
 			} catch (Exception e) {
-				System.err.println(e.toString());
+				ArdWindow.println(e.toString());
 			}
 		}
+		notifyObservers(serialInput);
 		// Ignore all the other eventTypes, but you should consider the other ones.
 	}
 

@@ -9,6 +9,7 @@
 	<classpathentry kind="lib" path="C:/Program Files/Micro-Manager-1.4/plugins/Micro-Manager/MMJ_.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Micro-Manager-1.4/ij.jar"/>
 	<classpathentry kind="lib" path="libs/MMCoreJ.jar"/>
-	<classpathentry kind="lib" path="libs/RXTXcomm.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre7"/>
+	<classpathentry kind="lib" path="C:/Program Files/Micro-Manager-1.4-2/plugins/Micro-Manager/rxtx-2.2.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
