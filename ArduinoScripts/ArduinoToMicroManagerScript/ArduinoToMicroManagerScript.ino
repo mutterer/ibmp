@@ -33,7 +33,6 @@ void loop() {
       buttonTimes[i] = millis()-500;
       
     }
-    Serial.println(String(millis()-buttonTimes[2]));
   }
   
   //If the place isnt taken it spams repeatedly
@@ -44,7 +43,7 @@ void loop() {
       aVals[0] = 999;
     }
     Serial.println(String((10*1000) + aVals[0]));
-  }/*
+  }
     if(!(analogRead(A1) - aVals[1] <2 && analogRead(A1) - aVals[1] > -2)){
     aVals[1] = analogRead(A1);
     if(aVals[1] > 999){
@@ -79,7 +78,7 @@ void loop() {
       aVals[0] = 999;
     }
     Serial.println(String((15*1000) + aVals[5]));
-  }*/
+  }
   }
   
 

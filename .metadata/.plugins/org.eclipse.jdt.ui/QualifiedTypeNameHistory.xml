@@ -3,11 +3,9 @@
 <fullyQualifiedTypeName name="java.awt.TextField"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="java.beans.Visibility"/>
-<fullyQualifiedTypeName name="mmcorej.CMMCore"/>
 <fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReciever"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReader"/>
-<fullyQualifiedTypeName name="org.micromanager.api.ScriptInterface"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
@@ -17,7 +15,24 @@
 <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMappingPropertyWindow"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
-<fullyQualifiedTypeName name="java.lang.Exception"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.MicroManagerPlugin"/>
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.Connecter"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.blablaterstersdf"/>
+<fullyQualifiedTypeName name="java.io.Console"/>
+<fullyQualifiedTypeName name="java.io.OutputStream"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArduinoRemoteWindow"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="java.lang.Override"/>
+<fullyQualifiedTypeName name="javax.management.monitor.CounterMonitorMBean"/>
+<fullyQualifiedTypeName name="org.micromanager.api.MMPlugin"/>
+<fullyQualifiedTypeName name="org.micromanager.api.ScriptInterface"/>
+<fullyQualifiedTypeName name="mmcorej.CMMCore"/>
+<fullyQualifiedTypeName name="java.lang.InterruptedException"/>
+<fullyQualifiedTypeName name="java.lang.Appendable"/>
+<fullyQualifiedTypeName name="gnu.io.SerialPortEventListener"/>
+<fullyQualifiedTypeName name="java.util.EventListener"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
+<fullyQualifiedTypeName name="gnu.io.CommPortIdentifier"/>
+<fullyQualifiedTypeName name="java.awt.ScrollPane"/>
+<fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
 </qualifiedTypeNameHistroy>

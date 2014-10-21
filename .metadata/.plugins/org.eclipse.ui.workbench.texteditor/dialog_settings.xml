@@ -13,8 +13,10 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="ScriptInterfaceWrapper" key="selection"/>
+		<item value="notifyOb" key="selection"/>
 		<list key="findhistory">
+			<item value="notifyob"/>
+			<item value="gui"/>
 			<item value="scriptinterfacewrapper"/>
 			<item value="1024"/>
 			<item value="10000"/>

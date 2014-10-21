@@ -11,7 +11,7 @@ import java.util.Enumeration;
 import java.util.Observable;
 
 
-public class SerialReader extends Observable{
+public class SerialReader extends Observable implements SerialPortEventListener{
 	SerialPort serialPort;
         /** The port we're normally going to use. */
 	private static final String PORT_NAME[] = { 

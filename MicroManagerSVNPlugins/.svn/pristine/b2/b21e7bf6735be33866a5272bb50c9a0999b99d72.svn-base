@@ -1,4 +1,0 @@
-<project name="ImageFlipper" default="jar">
-	<property name="plugin.path" value="Image_Processing"/>
-	<import file="../javapluginbuild.xml"/>
-</project>
