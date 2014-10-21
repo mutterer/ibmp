@@ -7,7 +7,11 @@ CertainChannel: 1 GroupName 2 ChannelName
 Channel +/-: 1 GroupName
 
 CertainProp: 1 DeviceName(label) 2 PropertyName 3 Value
+-DeviceName == default if no device (like exposure)
 
 PropUp/Down: 1 DeviceName(label) 2 PropertyName 3 SmallValue 4 MedValue 5 BigValue
 
 PropDynamic: 1 DeviceName(label) 2 PropertyName 3 MinValue 4 MaxValue
+
+
+-Exposure // doing
