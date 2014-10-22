@@ -1,4 +1,4 @@
-0: Function / CertainChannel / Channel+ / Channel - / CertainProp / PropUp / PropDown / PropDynamic
+ 0: 0Function / 1CertainChannel / 2Channel+ / 3Channel - / 4CertainProp / 5PropStep / 6PropDynamic
 
 Function: 1 Function
 
