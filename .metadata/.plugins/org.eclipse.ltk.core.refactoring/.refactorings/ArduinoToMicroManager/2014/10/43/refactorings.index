@@ -18,3 +18,10 @@
 1413890648207	Rename local variable 'inputLine'
 1413901644963	Delete element
 1413901647553	Delete element
+1413961971307	Delete element
+1413961974037	Delete element
+1413967563895	Rename local variable 'deviceNameBox'
+1413970155800	Rename method 'getDeviceAdapterNames'
+1413984085145	Rename local variable 'lblNewLabel'
+1413984711401	Delete element
+1413988536737	Rename local variable 'errorLabel'

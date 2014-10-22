@@ -22,7 +22,7 @@ void loop() {
   
   //ports 0 and 1 are spamming
   //If a Place isn't taken it goes off if the one next to it goes off
-  for(int i = 2; i<=10; i++){
+  for(int i = 2; i<=2; i++){
     if(digitalRead(i) == HIGH && millis() - buttonTimes[i] > 500){
       int value = i*1000;
       buttonTimes[i] = millis();
@@ -43,7 +43,7 @@ void loop() {
       aVals[0] = 999;
     }
     Serial.println(String((10*1000) + aVals[0]));
-  }
+  }/*
     if(!(analogRead(A1) - aVals[1] <2 && analogRead(A1) - aVals[1] > -2)){
     aVals[1] = analogRead(A1);
     if(aVals[1] > 999){
@@ -78,7 +78,7 @@ void loop() {
       aVals[0] = 999;
     }
     Serial.println(String((15*1000) + aVals[5]));
-  }
+  }*/
   }
   
 
