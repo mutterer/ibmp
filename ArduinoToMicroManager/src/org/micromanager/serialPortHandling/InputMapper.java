@@ -1,46 +1,15 @@
 package src.org.micromanager.serialPortHandling;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
-import mmcorej.CMMCore;
-
-import org.micromanager.api.ScriptInterface;
-
 public class InputMapper {
-	private CMMCore core_;
-	private ScriptInterface gui_;
 	
+	private HashMap<Integer,String[]> map;
+	InputMapperWindow window;
 	
 	public InputMapper(){
-		/*OldCode
-		 * try{
-			gui_ = app;
-			core_ = gui_.getMMCore();
-		}
-		catch(NullPointerException nPe){
-			nPe.printStackTrace();
-		}*/
-		
-		
-		/*Making an Array of String Arrays which look like this:
-		 0:DeviceName ; 1:deviceProperty0; 2:deviceProperty1; ...
-		*/
-		/*Code for doing things without Static Core
-		try {
-			//String[] devices = core_.getDeviceAdapterNames().toArray();
-			//String[][] deviceProps = new String[devices.length][];
-			ArrayList<String> devices =new ArrayList<String>(Arrays.asList(core_.getDeviceAdapterNames().toArray()));
-			ArrayList<ArrayList<String>> deviceProps = new ArrayList<ArrayList<String>>();
-			for(int i = 0; i < devices.size(); i++){
-				deviceProps.add(new ArrayList<String>(Arrays.asList(core_.getDevicePropertyNames(devices.get(i)).toArray())));
-				deviceProps.get(i).add(0, devices.get(i));
-			}
-			propertyWindow = new InputMappingPropertyWindow(deviceProps);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}*/
+		map = new HashMap<Integer,String[]>();
+		window = new InputMapperWindow(map);
 	}
 	
 	public HashMap<Integer, String[]> returnMappings(){

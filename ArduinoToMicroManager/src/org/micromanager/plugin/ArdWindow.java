@@ -1,7 +1,6 @@
 package src.org.micromanager.plugin;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,12 +12,15 @@ import java.awt.event.MouseEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.ScrollPane;
 
 import javax.swing.*;
 
 public class ArdWindow extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private MicroManagerPlugin mm;
 	private JTextArea textField;
@@ -34,8 +36,10 @@ public class ArdWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public ArdWindow(MicroManagerPlugin inputMM) {
+		setTitle("LOG");
 		mm = inputMM;
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//TODO maybe put in close plugin thing
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -43,6 +47,7 @@ public class ArdWindow extends JFrame {
 		setContentPane(contentPane);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{167, 89, 0};
@@ -51,21 +56,9 @@ public class ArdWindow extends JFrame {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				mm.setProperty("Camera", "CCDTemperature", "-40");
-			}
-		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 0;
-		panel.add(btnNewButton, gbc_btnNewButton);
-		
 		textField = new JTextArea();
+		textField.setForeground(UIManager.getColor("ColorChooser.background"));
+		textField.setBackground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
 		textField.setRows(10);
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridheight = 4;

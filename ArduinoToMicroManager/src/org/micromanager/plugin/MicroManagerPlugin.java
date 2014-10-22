@@ -1,6 +1,10 @@
 package src.org.micromanager.plugin;
 
+import java.util.HashMap;
+
 import mmcorej.CMMCore;
+
+
 
 
 import org.micromanager.api.MMPlugin;
@@ -18,10 +22,9 @@ public class MicroManagerPlugin implements MMPlugin {
 	private SerialReader serialReader;
 
 	public void setApp(ScriptInterface app) {
-
 		gui_ = app;
 		core_ = app.getMMCore();
-		ScriptInterfaceWrapper.initialize(app);
+		ScriptInterfaceWrapper.initialize(gui_,core_);
 		if (window == null)
 			window = new ArdWindow(this);
 		window.setVisible(true);
@@ -33,6 +36,15 @@ public class MicroManagerPlugin implements MMPlugin {
 		serialReader.addObserver(serialReciever);
 		ArdWindow.println(""+serialReader.countObservers() + " Observers added to the Reader!");
 		ArdWindow.println("5.Done");
+		try {
+			ArdWindow.println(core_.getDevicePropertyNames("Arduino").toArray()[0]);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//TODO Delete this
+		InputMapperWindow window2 = new InputMapperWindow(new HashMap<Integer,String[]>());
+		window2.setVisible(true);
 	}
 
 	/*
