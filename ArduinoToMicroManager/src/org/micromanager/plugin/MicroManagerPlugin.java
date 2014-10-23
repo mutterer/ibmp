@@ -1,12 +1,6 @@
 package src.org.micromanager.plugin;
 
-import java.util.HashMap;
-
 import mmcorej.CMMCore;
-
-
-
-
 import org.micromanager.api.MMPlugin;
 import org.micromanager.api.ScriptInterface;
 
@@ -38,12 +32,8 @@ public class MicroManagerPlugin implements MMPlugin {
 		try {
 			ArdWindow.println(core_.getDevicePropertyNames("Arduino").toArray()[0]);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//TODO Delete this
-		InputMapper window2 = new InputMapper(new HashMap<Integer,String[]>());
-		window2.setVisible(true);
 	}
 
 	/*

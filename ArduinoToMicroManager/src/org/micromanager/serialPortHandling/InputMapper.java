@@ -1,6 +1,5 @@
 package src.org.micromanager.serialPortHandling;
 
-import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,14 +12,11 @@ import java.awt.GridLayout;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
 
 import src.org.micromanager.plugin.ArdWindow;
 import src.org.micromanager.plugin.ErrorPopup;
 import src.org.micromanager.plugin.ScriptInterfaceWrapper;
 
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.InputMethodListener;
 import java.awt.event.InputMethodEvent;
 import java.awt.event.MouseAdapter;
@@ -28,35 +24,31 @@ import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Observer;
 
-import javax.swing.JTextArea;
 
 public class InputMapper extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox[] deviceBoxAnal;
-	private JComboBox[] propertyBoxAnal;
 	private JPanel panel;
 	JTextField[] deviceFieldAnal = new JTextField[6];
 	JTextField[] propertyFieldAnal = new JTextField[6];
 	JTextField[] minValueFieldAnal = new JTextField[6];
 	JTextField[] maxValueFieldAnal = new JTextField[6];
 	JButton[] okBtnAnal = new JButton[6];
+	private final String BTNSTRINGOK = "OK";
+	private final String BTNSTRINCHANGE = "Back";
 	
-	InputMapperMessenger messenger;
 	
 	HashMap<Integer,String[]> map;
 	
 	private static final int FIRSTBLOCKSTART = 2;
 	private static final int SECONDBLOCKSTART = 10;
 
-	public InputMapper(HashMap<Integer,String[]> mapInput) {
-		if( mapInput == null || mapInput.isEmpty()){
-			map = new HashMap<Integer,String[]>();
-		}
-		else{
-			map = mapInput;
-		}
-		messenger = new InputMapperMessenger(map);
+	public InputMapper() {
+		map = new HashMap<Integer,String[]>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 500);
 		contentPane = new JPanel();
@@ -144,7 +136,7 @@ public class InputMapper extends JFrame {
 			propertyFieldAnal[i] = new JTextField();
 			minValueFieldAnal[i] = new JTextField();
 			maxValueFieldAnal[i] = new JTextField();
-			okBtnAnal[i] = new JButton("OK");
+			okBtnAnal[i] = new JButton(BTNSTRINGOK);
 			
 			deviceFieldAnal[i].addInputMethodListener(new InputMethodListener() {
 				public void caretPositionChanged(InputMethodEvent arg0) {
@@ -222,7 +214,18 @@ public class InputMapper extends JFrame {
 						minVGood = true;
 						maxVGood = true;
 					}
-					if(!(isAProperty && isAValidProperty && minVGood && maxVGood && maxMinNumbers)){
+					/**
+					 * If you want to reenable the textfields and change something
+					 */
+					if(okBtnAnal[index].getText().equals(BTNSTRINCHANGE)){
+
+						deviceFieldAnal[index].setEnabled(true);
+						propertyFieldAnal[index].setEnabled(true);
+						maxValueFieldAnal[index].setEnabled(true);
+						minValueFieldAnal[index].setEnabled(true);
+						okBtnAnal[index].setText(BTNSTRINGOK);
+					}
+					else if(!(isAProperty && isAValidProperty && minVGood && maxVGood && maxMinNumbers)){
 						String message = "Something went wrong: "+"\n \n";
 						message += isAProperty?"":"-Your property does not exist "+"\n";
 						message += isAValidProperty?"":"-Your property is not valid for an analog input "+"\n";
@@ -238,10 +241,12 @@ public class InputMapper extends JFrame {
 					 * -> What happens when you actually press OK successfully
 					 */
 					else{
-						
 						map.put(index+10, new String[]{"6",device,prop,minV,maxV});
-						messenger.setMap(map);
-						okBtnAnal[index].setEnabled(false);
+						deviceFieldAnal[index].setEnabled(false);
+						propertyFieldAnal[index].setEnabled(false);
+						maxValueFieldAnal[index].setEnabled(false);
+						minValueFieldAnal[index].setEnabled(false);
+						okBtnAnal[index].setText(BTNSTRINCHANGE);
 					}
 				}
 			});
@@ -265,15 +270,6 @@ public class InputMapper extends JFrame {
 	}
 	
 	public HashMap<Integer,String[]> returnMappings(){
-		return map;
-	}
-	
-	public void addObserver(Observer obs){
-		//FIXME
-		ArdWindow.println("Adding Obs in ImputMapper");
-		messenger.addNewObserver(obs);
-	}
-	public HashMap<Integer,String[]> getMap(){
 		return map;
 	}
 	
