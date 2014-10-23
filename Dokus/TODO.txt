@@ -1,0 +1,8 @@
+TODO:
+
+Finish the GUI
+	-Nur die Device properties werden gezeigt, mit denen man nummern hat bei analog
+
+Imagej.runmacro(path)... + Beanshell scripts with type and path as parameters
+
+Load configuration
