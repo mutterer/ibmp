@@ -1,0 +1,15 @@
+package src.org.micromanager.serialPortHandling;
+
+import java.util.HashMap;
+import java.util.Observable;
+
+public class InputMapperMessenger extends Observable {
+
+	
+	public InputMapperMessenger(){
+	}
+	
+	public void changed(){
+		setChanged();
+	}
+}

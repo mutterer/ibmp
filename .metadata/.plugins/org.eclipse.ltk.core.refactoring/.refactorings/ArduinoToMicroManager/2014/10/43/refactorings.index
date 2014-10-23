@@ -25,3 +25,9 @@
 1413984085145	Rename local variable 'lblNewLabel'
 1413984711401	Delete element
 1413988536737	Rename local variable 'errorLabel'
+1414050095069	Rename type 'InputMapper'
+1414050216921	Rename type 'InputMapperMessenger'
+1414050867528	Rename type 'InputMapper'
+1414050876187	Rename type 'InputMapperWindow'
+1414053883065	Rename method 'returnMappings'
+1414055583557	Delete element

@@ -1,5 +1,7 @@
 int aVals[6];
 unsigned long buttonTimes[11];
+unsigned long lastSendTime = millis();
+int cap = 900;
 
 void setup() {
   //NonLEDS
@@ -26,7 +28,7 @@ void loop() {
     if(digitalRead(i) == HIGH && millis() - buttonTimes[i] > 500){
       int value = i*1000;
       buttonTimes[i] = millis();
-      Serial.println(String(value));
+      serialPrintln(String(value));
     }
     //To prevent a bug where after a while the buttons start spamming
     if(millis()-buttonTimes[i] > 1500){
@@ -39,46 +41,54 @@ void loop() {
   //The signal goes from 0 to a cap of 999 to not have to deal with overload
   if(!(analogRead(A0) - aVals[0] <2 && analogRead(A0) - aVals[0] > -2)){
     aVals[0] = analogRead(A0);
-    if(aVals[0] > 999){
-      aVals[0] = 999;
+    if(aVals[0] > cap){
+      aVals[0] = cap;
     }
-    Serial.println(String((10*1000) + aVals[0]));
+    serialPrintln(String((10*1000) + aVals[0]));
   }/*
     if(!(analogRead(A1) - aVals[1] <2 && analogRead(A1) - aVals[1] > -2)){
     aVals[1] = analogRead(A1);
-    if(aVals[1] > 999){
-      aVals[0] = 999;
+    if(aVals[1] > cap){
+      aVals[1] = cap;
     }
     Serial.println(String((11*1000) + aVals[1]));
   }
     if(!(analogRead(A2) - aVals[2] <2 && analogRead(A2) - aVals[2] > -2)){
     aVals[2] = analogRead(A2);
-    if(aVals[2] > 999){
-      aVals[0] = 999;
+    if(aVals[2] > cap){
+      aVals[2] = cap;
     }
     Serial.println(String((12*1000) + aVals[2]));
   }
     if(!(analogRead(A3) - aVals[3] <2 && analogRead(A3) - aVals[3] > -2)){
     aVals[3] = analogRead(A3);
-    if(aVals[3] > 999){
-      aVals[0] = 999;
+    if(aVals[3] > cap){
+      aVals[3] = cap;
     }
     Serial.println(String((13*1000) + aVals[3]));
   }
     if(!(analogRead(A4) - aVals[4] <2 && analogRead(A4) - aVals[4] > -2)){
     aVals[4] = analogRead(A4);
-    if(aVals[4] > 999){
-      aVals[0] = 999;
+    if(aVals[4] > cap){
+      aVals[4] = cap;
     }
     Serial.println(String((14*10000) + aVals[4]));
   }
     if(!(analogRead(A5) - aVals[5] <2 && analogRead(A5) - aVals[5] > -2)){
     aVals[5] = analogRead(A5);
-    if(aVals[5] > 999){
-      aVals[0] = 999;
+    if(aVals[5] > cap){
+      aVals[5] = cap;
     }
     Serial.println(String((15*1000) + aVals[5]));
   }*/
+  }
+  
+  void serialPrintln(String msg){
+    int msgPerSecond = 15;
+    if(millis()-lastSendTime > 1000/msgPerSecond){
+       Serial.println(msg); 
+       lastSendTime = millis();
+    }
   }
   
 

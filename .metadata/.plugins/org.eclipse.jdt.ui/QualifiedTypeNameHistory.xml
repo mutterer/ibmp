@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="java.awt.TextField"/>
-<fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="java.beans.Visibility"/>
-<fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReciever"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReader"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMapper"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
 <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMappingPropertyWindow"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.MicroManagerPlugin"/>
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.Connecter"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.blablaterstersdf"/>
@@ -31,8 +26,25 @@
 <fullyQualifiedTypeName name="java.lang.Appendable"/>
 <fullyQualifiedTypeName name="gnu.io.SerialPortEventListener"/>
 <fullyQualifiedTypeName name="java.util.EventListener"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
 <fullyQualifiedTypeName name="gnu.io.CommPortIdentifier"/>
 <fullyQualifiedTypeName name="java.awt.ScrollPane"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+<fullyQualifiedTypeName name="mmcorej.PropertyType"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.swing.JButton"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
+<fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperWindow"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
+<fullyQualifiedTypeName name="javax.swing.JTextField"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="javax.swing.JTextPane"/>
+<fullyQualifiedTypeName name="java.util.Observable"/>
+<fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperMessenger"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.util.Observer"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
+<fullyQualifiedTypeName name="mmcorej.StrVector"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
+<fullyQualifiedTypeName name="javax.swing.JComboBox"/>
 </qualifiedTypeNameHistroy>

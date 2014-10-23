@@ -1,0 +1,5 @@
+package src.org.micromanager.plugin;
+
+public class Constants {
+	public static final int MESSAGECAP = 900;
+}
