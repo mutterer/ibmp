@@ -111,8 +111,7 @@ public class SerialReader extends Observable implements SerialPortEventListener{
 			try {
 					serialInput=input.readLine();
 					System.out.println(serialInput);
-					ArdWindow.print("Sending.");
-					ArdWindow.print(". ");
+					ArdWindow.print("Sending..");
 					setChanged();
 			} catch (Exception e) {
 				ArdWindow.println(e.toString());

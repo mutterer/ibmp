@@ -56,7 +56,7 @@ public class Connecter implements Observer {
      * PropDynamic: 1 DeviceName(label) 2 PropertyName 3 MinValue 4 MaxValue
      * 
      * Values SenDed:
-     * ButtonMapValue*1000 + (Value if Analog) value geHt vOn 0 - 999
+     * ButtonMapValue*1000 + (Value if Analog) value geHt vOn 0 - MESSGAGECAP in Constants
      */
 	public void update(Observable object, Object signalObject) {
 		HashMap<Integer,String[]> mappings = mapper.returnMappings();
@@ -117,9 +117,16 @@ public class Connecter implements Observer {
 				microManager.stepProperty(args[1], args[2], stepSize);
 				break;
 			case PROPDYNAMIC:
+				//input Value
 				int valueSignal = signal -1000* (int)(Math.floor(signal/1000));
+				//border handling
+				if(valueSignal <= Constants.CAPROUNDAMOUNT)
+					valueSignal = 0;
+				else if(valueSignal >= Constants.MESSAGECAP-Constants.CAPROUNDAMOUNT)
+					valueSignal = Constants.MESSAGECAP;
 				double factor = Integer.parseInt(args[4]) - Integer.parseInt(args[3]);
-				factor /= 999;
+				factor /= Constants.MESSAGECAP;
+				//output Value
 				double valueMM = (valueSignal*factor)+ Integer.parseInt(args[3]);
 				microManager.setProperty(args[1], args[2], ""+valueMM);
 				break;
