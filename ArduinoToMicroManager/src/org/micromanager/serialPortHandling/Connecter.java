@@ -62,13 +62,6 @@ public class Connecter implements Observer {
 		HashMap<Integer,String[]> mappings = mapper.returnMappings();
 		//FIXME
 		ArdWindow.println("..Recieving");
-		try{
-			ArdWindow.println(mappings.get(10)[0]+" , "+mappings.get(10)[1]);
-		}
-		catch(Exception e){
-			ArdWindow.println(e.getMessage());
-		}
-		
 		//if you get a signal convert it with the hashmap
 		int commandInt = -1;
 		int buttonNR = -1;

@@ -2,6 +2,7 @@ package src.org.micromanager.serialPortHandling;
 
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -23,6 +24,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
 import java.util.Observer;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 
 public class InputMapper extends JFrame {
@@ -33,8 +36,10 @@ public class InputMapper extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel panel;
-	JTextField[] deviceFieldAnal = new JTextField[6];
-	JTextField[] propertyFieldAnal = new JTextField[6];
+	JComboBox[] deviceBoxAnal;
+	JComboBox[] propertyBoxAnal;
+	//JTextField[] deviceFieldAnal = new JTextField[6];
+	//JTextField[] propertyFieldAnal = new JTextField[6];
 	JTextField[] minValueFieldAnal = new JTextField[6];
 	JTextField[] maxValueFieldAnal = new JTextField[6];
 	JButton[] okBtnAnal = new JButton[6];
@@ -50,7 +55,7 @@ public class InputMapper extends JFrame {
 	public InputMapper() {
 		map = new HashMap<Integer,String[]>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 500);
+		setBounds(100, 100, 657, 502);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,8 +63,12 @@ public class InputMapper extends JFrame {
 		
 		panel = new JPanel();
 		contentPane.add(panel);
-		panel.setLayout(new MigLayout("", "[][82.00,grow][grow]", "[grow][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00]"));
+		panel.setLayout(new MigLayout("", "[][82.00,grow][grow][][]", "[grow][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00]"));
 		
+		
+		/**
+		 * Analog Part Initialization
+		 */
 		JLabel lblDeviceName = new JLabel("Device-Name");
 		panel.add(lblDeviceName, "cell 1 1");
 		
@@ -90,7 +99,7 @@ public class InputMapper extends JFrame {
 		JLabel lblA0 = new JLabel("A0");
 		panel.add(lblA0, "cell 0 "+(FIRSTBLOCKSTART+5)+",alignx trailing");
 		
-		/* Doesnt Work because of buggy Core_ functions in scriptinterfacewrapper
+		// Doesnt Work because of buggy Core_ functions in scriptinterfacewrapper
 		String[] deviceNames;
 		try {
 			deviceNames = ScriptInterfaceWrapper.getDeviceNames();
@@ -109,7 +118,7 @@ public class InputMapper extends JFrame {
 					String device = (String)box.getSelectedItem();
 					String[] props;
 					try {
-						props = ScriptInterfaceWrapper.getDevicePropertyNames(device);
+						props = ScriptInterfaceWrapper.getDeviceNumberPropertyNames(device);
 					} catch (Exception e) {
 						props = new String[]{};
 					}
@@ -129,66 +138,36 @@ public class InputMapper extends JFrame {
 			});
 			panel.add(deviceBoxAnal[i], "cell 1 "+rownumber+",growx");
 			panel.add(propertyBoxAnal[i], "cell 2 "+rownumber+",growx");
-		}*/
+		}
 		
-		for(int i = 0; i< deviceFieldAnal.length; i++){
-			deviceFieldAnal[i] = new JTextField();
-			propertyFieldAnal[i] = new JTextField();
+		
+		
+		try {
+			String[] array = ScriptInterfaceWrapper.getDeviceNames();
+			for(int i = 0; i< array.length;i++){
+				ArdWindow.println(array[i]);
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		for(int i = 0; i< minValueFieldAnal.length; i++){
 			minValueFieldAnal[i] = new JTextField();
 			maxValueFieldAnal[i] = new JTextField();
 			okBtnAnal[i] = new JButton(BTNSTRINGOK);
 			
-			deviceFieldAnal[i].addInputMethodListener(new InputMethodListener() {
-				public void caretPositionChanged(InputMethodEvent arg0) {
-				}
-				public void inputMethodTextChanged(InputMethodEvent arg0) {
-					int index = arrayGetIndex(deviceFieldAnal,arg0.getSource());
-					if(!okBtnAnal[index].isEnabled()){
-						okBtnAnal[index].setEnabled(true);
-					}
-				}
-			});
-			propertyFieldAnal[i].addInputMethodListener(new InputMethodListener() {
-				public void caretPositionChanged(InputMethodEvent arg0) {
-				}
-				public void inputMethodTextChanged(InputMethodEvent arg0) {
-					int index = arrayGetIndex(propertyFieldAnal,arg0.getSource());
-					if(!okBtnAnal[index].isEnabled()){
-						okBtnAnal[index].setEnabled(true);
-					}
-				}
-			});
-			minValueFieldAnal[i].addInputMethodListener(new InputMethodListener() {
-				public void caretPositionChanged(InputMethodEvent arg0) {
-				}
-				public void inputMethodTextChanged(InputMethodEvent arg0) {
-					int index = arrayGetIndex(minValueFieldAnal,arg0.getSource());
-					if(!okBtnAnal[index].isEnabled()){
-						okBtnAnal[index].setEnabled(true);
-					}
-				}
-			});
-			maxValueFieldAnal[i].addInputMethodListener(new InputMethodListener() {
-				public void caretPositionChanged(InputMethodEvent arg0) {
-				}
-				public void inputMethodTextChanged(InputMethodEvent arg0) {
-					int index = arrayGetIndex(maxValueFieldAnal,arg0.getSource());
-					if(!okBtnAnal[index].isEnabled()){
-						okBtnAnal[index].setEnabled(true);
-					}
-				}
-			});
 			okBtnAnal[i].addMouseListener(new MouseAdapter() {
-				@Override 
+				@Override
 				public void mouseClicked(MouseEvent arg0){
 					int index = arrayGetIndex(okBtnAnal, arg0.getSource());
+					String device = (String)deviceBoxAnal[index].getSelectedItem();
+					String prop = (String)propertyBoxAnal[index].getSelectedItem();
 					
 					/**
 					 * Exception handling below
 					 * Careful MM is case sensitive
 					 */
-					String device = deviceFieldAnal[index].getText();
-					String prop = propertyFieldAnal[index].getText();
 					String minV = minValueFieldAnal[index].getText();
 					String maxV = maxValueFieldAnal[index].getText();
 					boolean isAProperty = ScriptInterfaceWrapper.isAProperty(device, prop);
@@ -219,8 +198,8 @@ public class InputMapper extends JFrame {
 					 */
 					if(okBtnAnal[index].getText().equals(BTNSTRINCHANGE)){
 
-						deviceFieldAnal[index].setEnabled(true);
-						propertyFieldAnal[index].setEnabled(true);
+						deviceBoxAnal[index].setEnabled(true);
+						propertyBoxAnal[index].setEnabled(true);
 						maxValueFieldAnal[index].setEnabled(true);
 						minValueFieldAnal[index].setEnabled(true);
 						okBtnAnal[index].setText(BTNSTRINGOK);
@@ -242,8 +221,8 @@ public class InputMapper extends JFrame {
 					 */
 					else{
 						map.put(index+10, new String[]{"6",device,prop,minV,maxV});
-						deviceFieldAnal[index].setEnabled(false);
-						propertyFieldAnal[index].setEnabled(false);
+						deviceBoxAnal[index].setEnabled(false);
+						propertyBoxAnal[index].setEnabled(false);
 						maxValueFieldAnal[index].setEnabled(false);
 						minValueFieldAnal[index].setEnabled(false);
 						okBtnAnal[index].setText(BTNSTRINCHANGE);
@@ -251,12 +230,14 @@ public class InputMapper extends JFrame {
 				}
 			});
 			int rownumber = (i*-1)+okBtnAnal.length+1;
-			panel.add(deviceFieldAnal[i], "cell 1 "+rownumber+",growx");
-			panel.add(propertyFieldAnal[i], "cell 2 "+rownumber+",growx");
 			panel.add(minValueFieldAnal[i], "cell 3 "+rownumber+",growx");
 			panel.add(maxValueFieldAnal[i], "cell 4 "+rownumber+",growx");
 			panel.add(okBtnAnal[i], "cell 5 "+rownumber+",growx");
 		}
+		
+		/**
+		 * Pin Part Initialization
+		 */
 		
 		JLabel[] pinLbl = new JLabel[10];
 		for(int i = 0; i <pinLbl.length; i++){

@@ -14,6 +14,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.*;
+import java.awt.Color;
 
 public class ArdWindow extends JFrame {
 
@@ -57,7 +58,7 @@ public class ArdWindow extends JFrame {
 		panel.setLayout(gbl_panel);
 		
 		textField = new JTextArea();
-		textField.setForeground(UIManager.getColor("ColorChooser.background"));
+		textField.setForeground(Color.GREEN);
 		textField.setBackground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
 		textField.setRows(10);
 		GridBagConstraints gbc_textField = new GridBagConstraints();

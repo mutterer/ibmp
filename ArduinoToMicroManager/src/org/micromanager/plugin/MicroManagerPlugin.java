@@ -121,6 +121,7 @@ public class MicroManagerPlugin implements MMPlugin {
 	}
 
 	public void stepProperty(String label, String propName, int amount) {
+		//TODO Randbehandlung Wenn man über Rand stept
 		try {
 			core_.setProperty(
 					label,

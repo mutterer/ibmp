@@ -3,6 +3,7 @@ package src.org.micromanager.plugin;
 import java.util.ArrayList;
 
 import mmcorej.PropertyType;
+import mmcorej.StrVector;
 
 
 public class ScriptInterfaceWrapper {
@@ -16,12 +17,29 @@ public class ScriptInterfaceWrapper {
 	}
 	
 	public static String[] getDevicePropertyNames(String label) throws Exception{
-		return core_.getDevicePropertyNames(label).toArray();
+		StrVector vec = core_.getDevicePropertyNames(label);
+		return strVectorToStrArray(vec);
+	}
+	
+	public static String[] getDeviceNumberPropertyNames(String label) throws Exception{
+		String[] names = getDevicePropertyNames(label);
+		ArrayList<String> namesList = new ArrayList<String>();
+		for(int i = 0; i < names.length; i++){
+			if(propertyTypeIsANumber(label, names[i])){
+				namesList.add(names[i]);
+			}
+		}
+		String[] returnArray = new String[namesList.size()];
+		for(int i = 0; i< returnArray.length; i++){
+			returnArray[i] = namesList.get(i);
+		}
+		return returnArray;
 	}
 	
 	public static String[] getDeviceNames() throws Exception{
 		//fixme : Alles ist leer... ...core methoden sind buggy
-		/*String[] namesAll = core_.getDeviceAdapterNames().toArray();
+		/*
+		String[] namesAll = strVectorToStrArray(core_.getDeviceAdapterNames());
 		ArrayList<String> names = new ArrayList<String>();
 		for(int i = 0; i < namesAll.length; i++){
 			try{
@@ -35,7 +53,16 @@ public class ScriptInterfaceWrapper {
 			}
 		}
 		return (String[]) names.toArray();*/
-		return core_.getDeviceAdapterNames().toArray();
+		StrVector vec = core_.getLoadedDevices();
+		return strVectorToStrArray(vec);
+	}
+	
+	private static String[] strVectorToStrArray(StrVector vec){
+		String[] vecArray = new String[(int)vec.size()];
+		for(int i = 0; i< vec.size(); i++){
+			vecArray[i] = vec.get(i);
+		}
+		return vecArray;
 	}
 	
 	public static boolean propertyTypeIsANumber(String label, String propName){
@@ -43,7 +70,8 @@ public class ScriptInterfaceWrapper {
 		try {
 			properType = core_.getPropertyType(label, propName);
 			String propertyType = properType.toString();
-			return propertyType.toLowerCase().equals("float")|| propertyType.toLowerCase().equals("integer");
+			boolean numberTypeBool = (propertyType.toLowerCase().equals("float")|| propertyType.toLowerCase().equals("integer"));
+			return numberTypeBool && (propertyMaxValue(label, propName) != propertyMinValue(label, propName));
 		} catch (Exception e) {
 			return false;
 		}
