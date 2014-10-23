@@ -34,7 +34,6 @@ public class MicroManagerPlugin implements MMPlugin {
 		serialReader.initialize();
 		ArdWindow.println("4.SerialReader Initialized");
 		serialReader.addObserver(serialReciever);
-		ArdWindow.println(""+serialReader.countObservers() + " Observers added to the Reader!");
 		ArdWindow.println("5.Done");
 		try {
 			ArdWindow.println(core_.getDevicePropertyNames("Arduino").toArray()[0]);
@@ -43,7 +42,7 @@ public class MicroManagerPlugin implements MMPlugin {
 			e.printStackTrace();
 		}
 		//TODO Delete this
-		InputMapperWindow window2 = new InputMapperWindow(new HashMap<Integer,String[]>());
+		InputMapper window2 = new InputMapper(new HashMap<Integer,String[]>());
 		window2.setVisible(true);
 	}
 

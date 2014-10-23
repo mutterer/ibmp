@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import javax.swing.JLabel;
@@ -18,6 +19,7 @@ import javax.swing.UIManager;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import net.miginfocom.swing.MigLayout;
 
 public class ErrorPopup extends JDialog {
@@ -32,10 +34,11 @@ public class ErrorPopup extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new MigLayout("", "[grow]", "[grow]"));
 		{
-			JTextField errorText = new JTextField(message);
+			JTextPane errorText = new JTextPane();
 			errorText.setEditable(false);
 			errorText.setBackground(Color.WHITE);
 			errorText.setForeground(Color.BLACK);
+			errorText.setText(message);
 			contentPanel.add(errorText, "cell 0 0,growx,growy");
 		}
 		{

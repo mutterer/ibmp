@@ -64,6 +64,7 @@ public class ScriptInterfaceWrapper {
 			return true;
 		}
 		catch(Exception e){
+			new ErrorPopup(e.getMessage()).setVisible(true);;
 			return false;
 		}
 	}

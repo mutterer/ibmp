@@ -11,7 +11,7 @@ public class Connecter implements Observer {
 
 	private HashMap<Integer, String[]> mappings;
 	private MicroManagerPlugin microManager;
-	
+	private InputMapper mapper;
 	
 	public static final int FUNCTION = 0;
 	public static final int CERTAINCHANNEL = 1;
@@ -33,9 +33,9 @@ public class Connecter implements Observer {
 
 		microManager = mm;
 	    
-	    
-	    //TODO Open Mapping
-	    InputMapper mapper = new InputMapper();
+		ArdWindow.println("Connecter Constructor 36");
+	    mapper = new InputMapper(mappings);
+	    mapper.addObserver(this);
 	    
 		//FIXME
 		ArdWindow.println("1.Initializing Connecter");
@@ -60,85 +60,99 @@ public class Connecter implements Observer {
 	     */
 	    
 
-	    mappings = new HashMap<Integer, String[]>();
-	    //TODO change this back
-	    //mappings = mapper.returnMappings();
-	    //mappings.put(2,new String[]{"4","Camera","CCDTemperature","-30"});
-	    mappings.put(2,new String[]{"3","Illumination"});
-	    mappings.put(10,new String[]{"6","Camera","CCDTemperature","-50","5"});
-
+	    mappings = mapper.returnMappings();
 	}
 
 	
 	public void update(Observable object, Object signalObject) {
-		//FIXME
-		ArdWindow.println("..Recieving");
-		
-		//if you get a signal convert it with the hashmap
-		int commandInt = -1;
-		int buttonNR = -1;
-		int signal;
+		ArdWindow.println("Update");
+		boolean signalIsString = false;
 		try{
-		signal = Integer.parseInt((String)signalObject);
-		buttonNR = (int)Math.floor(signal /1000);
-		ArdWindow.println("btnnr: "+ buttonNR);
-		}
-		catch(Exception e2){
-			e2.printStackTrace();
-			ArdWindow.println("Signal was not a number in [Connecter.update()]");
-			//make Signal a Number if it isn't
-			signal =10001;
-		}
-		try{
-			//Retrieve Function of Button from HashMap
-			commandInt = Integer.parseInt(mappings.get(buttonNR)[0]);
+			String testString = (String)signalObject;
+			signalIsString = true;
 		}
 		catch(Exception e){
-			e.printStackTrace();
-			ArdWindow.println("Didnt manage to parse String to Int in [Connecter.update()]");
-			ArdWindow.println("Maybe you haven't configured this input");
+			
 		}
-		String[] args = mappings.get(buttonNR);
-		switch(commandInt){
-			case -1:
-				System.out.println("-1");
-				break;
-			case FUNCTION:
-				//TODO This Case
-				break;
-			case CERTAINCHANNEL:
-				microManager.setConfig(args[1], args[2]);
-				break;
-			case CHANNELPLUS:
-				microManager.goUpConfig(args[1]);
-				break;
-			case CHANNELMINUS:
-				microManager.goDownConfig(args[1]);
-				break;
-			case CERTAINPROP:
-				microManager.setProperty(args[1], args[2], args[3]);
-				break;
-			case PROPSTEP:
-				microManager.stepProperty(args[1], args[2], stepSize);
-				break;
-			case PROPDYNAMIC:
-				int valueSignal = signal -1000* (int)(Math.floor(signal/1000));
-				double factor = Integer.parseInt(args[4]) - Integer.parseInt(args[3]);
-				factor /= 999;
-				double valueMM = (valueSignal*factor)+ Integer.parseInt(args[3]);
-				microManager.setProperty(args[1], args[2], ""+valueMM);
-				break;
-			case BIGSTEPS:
-				stepSize = BIGSTEPS - STEPCOMPENSATIONVALUE;
-				break;
-			case MEDSTEPS:
-				stepSize = MEDSTEPS - STEPCOMPENSATIONVALUE;
-				break;
-			case SMALLSTEPS:
-				stepSize = SMALLSTEPS - STEPCOMPENSATIONVALUE;
-				break;
+		if(signalIsString){
+			//FIXME
+			ArdWindow.println("..Recieving");
+			try{
+				ArdWindow.println(mappings.get(10)[0]+" , "+mappings.get(10)[1]);
+			}
+			catch(Exception e){
+				ArdWindow.println(e.getMessage());
+			}
+			
+			//if you get a signal convert it with the hashmap
+			int commandInt = -1;
+			int buttonNR = -1;
+			int signal;
+			try{
+			signal = Integer.parseInt((String)signalObject);
+			buttonNR = (int)Math.floor(signal /1000);
+			ArdWindow.println("btnnr: "+ buttonNR);
+			}
+			catch(Exception e2){
+				e2.printStackTrace();
+				ArdWindow.println("Signal was not a number in [Connecter.update()]");
+				//make Signal a Number if it isn't
+				signal =10001;
+			}
+			try{
+				//Retrieve Function of Button from HashMap
+				commandInt = Integer.parseInt(mappings.get(buttonNR)[0]);
+			}
+			catch(Exception e){
+				e.printStackTrace();
+				ArdWindow.println("Didnt manage to parse String to Int in [Connecter.update()]");
+				ArdWindow.println("Maybe you haven't configured this input");
+			}
+			String[] args = mappings.get(buttonNR);
+			switch(commandInt){
+				case -1:
+					System.out.println("-1");
+					break;
+				case FUNCTION:
+					//TODO This Case
+					break;
+				case CERTAINCHANNEL:
+					microManager.setConfig(args[1], args[2]);
+					break;
+				case CHANNELPLUS:
+					microManager.goUpConfig(args[1]);
+					break;
+				case CHANNELMINUS:
+					microManager.goDownConfig(args[1]);
+					break;
+				case CERTAINPROP:
+					microManager.setProperty(args[1], args[2], args[3]);
+					break;
+				case PROPSTEP:
+					microManager.stepProperty(args[1], args[2], stepSize);
+					break;
+				case PROPDYNAMIC:
+					int valueSignal = signal -1000* (int)(Math.floor(signal/1000));
+					double factor = Integer.parseInt(args[4]) - Integer.parseInt(args[3]);
+					factor /= 999;
+					double valueMM = (valueSignal*factor)+ Integer.parseInt(args[3]);
+					microManager.setProperty(args[1], args[2], ""+valueMM);
+					break;
+				case BIGSTEPS:
+					stepSize = BIGSTEPS - STEPCOMPENSATIONVALUE;
+					break;
+				case MEDSTEPS:
+					stepSize = MEDSTEPS - STEPCOMPENSATIONVALUE;
+					break;
+				case SMALLSTEPS:
+					stepSize = SMALLSTEPS - STEPCOMPENSATIONVALUE;
+					break;
+			}
+			
 		}
-		
-		
+		else{
+			ArdWindow.println("HashMap Update");
+			mappings = mapper.returnMappings();
+		}
 	}
 }
