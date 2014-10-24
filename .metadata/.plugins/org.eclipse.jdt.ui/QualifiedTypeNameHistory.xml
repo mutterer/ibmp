@@ -4,7 +4,6 @@
 <fullyQualifiedTypeName name="java.beans.Visibility"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReciever"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.SerialReader"/>
-<fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="java.util.Arrays"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.serialPortHandling.InputMapper"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
@@ -35,7 +34,6 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperWindow"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.JTextPane"/>
@@ -45,6 +43,10 @@
 <fullyQualifiedTypeName name="java.util.Observer"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
 <fullyQualifiedTypeName name="mmcorej.StrVector"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.Constants"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
+<fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
 </qualifiedTypeNameHistroy>

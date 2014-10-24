@@ -12,13 +12,7 @@ public class Connecter implements Observer {
 	private MicroManagerPlugin microManager;
 	private InputMapper mapper;
 	
-	public static final int FUNCTION = 0;
-	public static final int CERTAINCHANNEL = 1;
-	public static final int CHANNELPLUS = 2;
-	public static final int CHANNELMINUS = 3;
-	public static final int CERTAINPROP = 4;
-	public static final int PROPSTEP = 5;
-	public static final int PROPDYNAMIC = 6;
+
 	
 	final int SMALLSTEPS = 16;
 	final int MEDSTEPS = SMALLSTEPS +1;
@@ -34,6 +28,7 @@ public class Connecter implements Observer {
 	    
 		ArdWindow.println("Connecter Constructor 36");
 	    mapper = new InputMapper();
+	    ArdWindow.println("something");
 	    mapper.setVisible(true);
 	    
 		//FIXME
@@ -91,25 +86,25 @@ public class Connecter implements Observer {
 			case -1:
 				System.out.println("-1");
 				break;
-			case FUNCTION:
+			case Constants.FUNCTION:
 				//TODO This Case
 				break;
-			case CERTAINCHANNEL:
+			case Constants.CERTAINCHANNEL:
 				microManager.setConfig(args[1], args[2]);
 				break;
-			case CHANNELPLUS:
+			case Constants.CHANNELPLUS:
 				microManager.goUpConfig(args[1]);
 				break;
-			case CHANNELMINUS:
+			case Constants.CHANNELMINUS:
 				microManager.goDownConfig(args[1]);
 				break;
-			case CERTAINPROP:
+			case Constants.CERTAINPROP:
 				microManager.setProperty(args[1], args[2], args[3]);
 				break;
-			case PROPSTEP:
+			case Constants.PROPSTEP:
 				microManager.stepProperty(args[1], args[2], stepSize);
 				break;
-			case PROPDYNAMIC:
+			case Constants.PROPDYNAMIC:
 				//input Value
 				int valueSignal = signal -1000* (int)(Math.floor(signal/1000));
 				//border handling

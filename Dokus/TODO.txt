@@ -6,3 +6,5 @@ Finish the GUI
 Imagej.runmacro(path)... + Beanshell scripts with type and path as parameters
 
 Load configuration
+
+Fehler: Tu Bei Method comboboxen, alles als Strings rein und nehms mit indexen raus -> mit indexen reintun gleich

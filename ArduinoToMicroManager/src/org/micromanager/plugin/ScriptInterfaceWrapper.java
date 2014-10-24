@@ -78,6 +78,14 @@ public class ScriptInterfaceWrapper {
 		
 	}
 	
+	public static String[] getGroupChannelNames(String group){
+		return strVectorToStrArray(core_.getAvailableConfigs(group));
+	}
+	
+	public static String[] getGroupNames(){
+		return strVectorToStrArray(core_.getAvailableConfigGroups());
+	}
+	
 	public static double propertyMaxValue(String label, String propName) throws Exception{
 		return core_.getPropertyUpperLimit(label, propName);
 	}

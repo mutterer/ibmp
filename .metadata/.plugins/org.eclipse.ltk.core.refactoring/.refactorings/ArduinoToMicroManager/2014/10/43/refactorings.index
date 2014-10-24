@@ -31,3 +31,9 @@
 1414050876187	Rename type 'InputMapperWindow'
 1414053883065	Rename method 'returnMappings'
 1414055583557	Delete element
+1414142904048	Rename local variable 'props'
+1414150073165	Rename field 'propertyBoxDig'
+1414150100714	Rename field 'deviceBoxDig'
+1414150404204	Rename local variable 'device'
+1414150414579	Rename local variable 'props'
+1414158447676	Rename local variable 'box'
