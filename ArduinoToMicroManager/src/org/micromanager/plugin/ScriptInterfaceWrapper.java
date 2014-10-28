@@ -21,6 +21,15 @@ public class ScriptInterfaceWrapper {
 		return strVectorToStrArray(vec);
 	}
 	
+	public static void snapImage() throws Exception{
+		core_.snapImage();
+		core_.startContinuousSequenceAcquisition(intervalMs);
+	}
+	
+	public static String getPropertyValue(String label, String propName) throws Exception{
+		return core_.getProperty(label, propName);
+	}
+	
 	public static String[] getDeviceNumberPropertyNames(String label) throws Exception{
 		String[] names = getDevicePropertyNames(label);
 		ArrayList<String> namesList = new ArrayList<String>();
@@ -66,7 +75,14 @@ public class ScriptInterfaceWrapper {
 	}
 	
 	public static boolean propertyTypeIsANumber(String label, String propName){
-		PropertyType properType;
+		//PropertyType properType;
+		try{
+			Double.parseDouble(core_.getProperty(label, propName));
+			return true;
+		}
+		catch(Exception e){
+			return false;
+		}/*
 		try {
 			properType = core_.getPropertyType(label, propName);
 			String propertyType = properType.toString();
@@ -74,7 +90,7 @@ public class ScriptInterfaceWrapper {
 			return numberTypeBool && (propertyMaxValue(label, propName) != propertyMinValue(label, propName));
 		} catch (Exception e) {
 			return false;
-		}
+		}*/
 		
 	}
 	

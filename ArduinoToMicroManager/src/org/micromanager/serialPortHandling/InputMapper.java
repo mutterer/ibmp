@@ -20,12 +20,9 @@ import src.org.micromanager.plugin.Constants;
 import src.org.micromanager.plugin.ErrorPopup;
 import src.org.micromanager.plugin.ScriptInterfaceWrapper;
 
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.HashMap;
-import java.util.Observer;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -47,7 +44,7 @@ public class InputMapper extends JFrame {
 	
 	
 	JComboBox[] methodBoxDig;
-	JComboBox[] deviceGroupBoxDig;
+	JComboBox[] deviceGroupFunctionBoxDig;
 	JComboBox[] propChanBoxDig;
 	JTextField[] smValueFieldDig;
 	JTextField[] medValueFieldDig;
@@ -58,6 +55,7 @@ public class InputMapper extends JFrame {
 	JButton[] okBtnAnal = new JButton[6];
 	private final String BTNSTRINGOK = "OK";
 	private final String BTNSTRINCHANGE = "Back";
+	private final String[] functions = new String[]{"Snap","Live"};
 	
 	
 	HashMap<Integer,String[]> map;
@@ -157,7 +155,6 @@ public class InputMapper extends JFrame {
 				ArdWindow.println(array[i]);
 			}
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -212,6 +209,7 @@ public class InputMapper extends JFrame {
 						maxValueFieldAnal[index].setEnabled(true);
 						minValueFieldAnal[index].setEnabled(true);
 						okBtnAnal[index].setText(BTNSTRINGOK);
+						map.put(index+10,new String[]{});
 					}
 					else if(!(isAProperty && isAValidProperty && minVGood && maxVGood && maxMinNumbers)){
 						String message = "Something went wrong: "+"\n \n";
@@ -255,7 +253,6 @@ public class InputMapper extends JFrame {
 			panel.add(pinLbl[i], "cell 0 "+ rownumber);
 		}
 		
-		//TODO
 		/**
 		 * Digial Initialization
 		 */
@@ -267,7 +264,7 @@ public class InputMapper extends JFrame {
 			methodBoxDig[i].addItemListener(new ItemListener(){
 				public void itemStateChanged(ItemEvent item){
 					JComboBox box = (JComboBox)item.getSource();
-					String function = (String)box.getSelectedItem();
+					String method = (String)box.getSelectedItem();
 					int index = 0;
 					for(int j = 0; j < methodBoxDig.length; j++){
 						if(box.equals(methodBoxDig[j])){
@@ -275,12 +272,12 @@ public class InputMapper extends JFrame {
 						}
 					}
 					try {
-						deviceGroupBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getGroupNames()));
+						deviceGroupFunctionBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getGroupNames()));
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					deviceGroupBoxDig[index].setVisible(false);
-					deviceGroupBoxDig[index].setEnabled(false);
+					deviceGroupFunctionBoxDig[index].setVisible(false);
+					deviceGroupFunctionBoxDig[index].setEnabled(false);
 					propChanBoxDig[index].setVisible(false);
 					propChanBoxDig[index].setEnabled(false);
 					smValueFieldDig[index].setVisible(false);
@@ -290,44 +287,57 @@ public class InputMapper extends JFrame {
 					bigValueFieldDig[index].setVisible(false);
 					bigValueFieldDig[index].setEnabled(false);
 					
-					if(function.equals("Function")){
-						
+					if(method.equals("Function")){
+						deviceGroupFunctionBoxDig[index].setModel(new DefaultComboBoxModel(functions));
+						deviceGroupFunctionBoxDig[index].setVisible(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
 					}
-					if(function.equals("Certain Channel")){
-						deviceGroupBoxDig[index].setVisible(true);
-						deviceGroupBoxDig[index].setEnabled(true);
-						propChanBoxDig[index].setVisible(true);
-						propChanBoxDig[index].setEnabled(true);
-					}
-					if(function.equals("Channel+")){
-						deviceGroupBoxDig[index].setVisible(true);
-						deviceGroupBoxDig[index].setEnabled(true);
-					}
-					if(function.equals("Channel-")){
-						deviceGroupBoxDig[index].setVisible(true);
-						deviceGroupBoxDig[index].setEnabled(true);
-					}
-					if(function.equals("Certain Prop")){
+					if(method.equals("Certain Channel")){
 						try {
-							deviceGroupBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getDeviceNames()));
+							String[] groups = ScriptInterfaceWrapper.getDeviceNames();
+							deviceGroupFunctionBoxDig[index].setModel(new DefaultComboBoxModel(groups));
+							propChanBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getGroupChannelNames(groups[0])));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						deviceGroupBoxDig[index].setVisible(true);
-						deviceGroupBoxDig[index].setEnabled(true);
+						deviceGroupFunctionBoxDig[index].setVisible(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
+						propChanBoxDig[index].setVisible(true);
+						propChanBoxDig[index].setEnabled(true);
+					}
+					if(method.equals("Channel+")){
+						deviceGroupFunctionBoxDig[index].setVisible(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
+					}
+					if(method.equals("Channel-")){
+						deviceGroupFunctionBoxDig[index].setVisible(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
+					}
+					if(method.equals("Certain Prop")){
+						try {
+							String[] devices = ScriptInterfaceWrapper.getDeviceNames();
+							deviceGroupFunctionBoxDig[index].setModel(new DefaultComboBoxModel(devices));
+							propChanBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getDevicePropertyNames(devices[0])));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						deviceGroupFunctionBoxDig[index].setVisible(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
 						propChanBoxDig[index].setVisible(true);
 						propChanBoxDig[index].setEnabled(true);
 						smValueFieldDig[index].setVisible(true);
 						smValueFieldDig[index].setEnabled(true);
 					}
-					if(function.equals("Prop Step")){
+					if(method.equals("Prop Step")){
 						try {
-							deviceGroupBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getDeviceNames()));
+							String[] devices = ScriptInterfaceWrapper.getDeviceNames();
+							deviceGroupFunctionBoxDig[index].setModel(new DefaultComboBoxModel(devices));
+							propChanBoxDig[index].setModel(new DefaultComboBoxModel(ScriptInterfaceWrapper.getDeviceNumberPropertyNames(devices[0])));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						deviceGroupBoxDig[index].setVisible(true);
-						deviceGroupBoxDig[index].setEnabled(true);
+						deviceGroupFunctionBoxDig[index].setVisible(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
 						propChanBoxDig[index].setVisible(true);
 						propChanBoxDig[index].setEnabled(true);
 						smValueFieldDig[index].setVisible(true);
@@ -342,29 +352,32 @@ public class InputMapper extends JFrame {
 			panel.add(methodBoxDig[i], "cell 1 "+ rownumber+",growx");
 		}
 		
-		deviceGroupBoxDig = new JComboBox[Constants.PINNUMBER];
+		deviceGroupFunctionBoxDig = new JComboBox[Constants.PINNUMBER];
 		for(int i = 0; i < Constants.PINNUMBER; i++){
 			try {
-				deviceGroupBoxDig[i] = new JComboBox(ScriptInterfaceWrapper.getDeviceNames());
+				deviceGroupFunctionBoxDig[i] = new JComboBox(ScriptInterfaceWrapper.getDeviceNames());
 			} catch (Exception e1) {
-				deviceGroupBoxDig[i] = new JComboBox();
+				deviceGroupFunctionBoxDig[i] = new JComboBox();
 			}
 			int rownumber = (i*-1) + Constants.PINNUMBER +SECONDBLOCKSTART;
-			deviceGroupBoxDig[i].addItemListener(new ItemListener() {
+			deviceGroupFunctionBoxDig[i].addItemListener(new ItemListener() {
 				public void itemStateChanged(ItemEvent item) {
 					JComboBox box = (JComboBox)item.getSource();
 					String deviceORgroup = (String)box.getSelectedItem();
 					String[] propORchannel;
 					int index = 0;
-					for(int j = 0; j < deviceGroupBoxDig.length; j++){
-						if(box.equals(deviceGroupBoxDig[j])){
+					for(int j = 0; j < deviceGroupFunctionBoxDig.length; j++){
+						if(box.equals(deviceGroupFunctionBoxDig[j])){
 							index = j;
 						}
 					}
 					String selectedMethod = (String)methodBoxDig[index].getSelectedItem();
 					if(selectedMethod.equals("Certain Prop") || selectedMethod.equals("Prop Step")){
 						try {
-							propORchannel = ScriptInterfaceWrapper.getDevicePropertyNames(deviceORgroup);
+							if(selectedMethod.equals("Certain Prop"))
+								propORchannel = ScriptInterfaceWrapper.getDevicePropertyNames(deviceORgroup);
+							else
+								propORchannel = ScriptInterfaceWrapper.getDeviceNumberPropertyNames(deviceORgroup);
 						} catch (Exception e) {
 							propORchannel = new String[]{};
 						}
@@ -381,9 +394,9 @@ public class InputMapper extends JFrame {
 					panel.repaint();
 				}
 			});
-			panel.add(deviceGroupBoxDig[i], "cell 2 "+ rownumber+",growx");
-			deviceGroupBoxDig[i].setVisible(false);
-			deviceGroupBoxDig[i].setEnabled(false);
+			panel.add(deviceGroupFunctionBoxDig[i], "cell 2 "+ rownumber+",growx");
+			deviceGroupFunctionBoxDig[i].setVisible(false);
+			deviceGroupFunctionBoxDig[i].setEnabled(false);
 		}
 		propChanBoxDig = new JComboBox[Constants.PINNUMBER];
 		for(int i = 0; i < Constants.PINNUMBER; i++){
@@ -427,91 +440,121 @@ public class InputMapper extends JFrame {
 		for(int i = 0; i < lblDig.length; i++){
 			panel.add(lblDig[i], "cell "+(i+1)+" "+(SECONDBLOCKSTART-1));
 		}
-		//TODO
-		/*okBtnDig = new JButton[Constants.PINNUMBER];
+		okBtnDig = new JButton[Constants.PINNUMBER];
 		for(int i = 0; i < Constants.PINNUMBER; i++){
-			okBtnDig[i] = new JButton();
+			okBtnDig[i] = new JButton(BTNSTRINGOK);
 			int rownumber = (i*-1) + Constants.PINNUMBER +SECONDBLOCKSTART;
-			okBtnAnal[i].addMouseListener(new MouseAdapter() {
-				//TODO finish exception handling
+			okBtnDig[i].addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0){
 					JButton sourceBtn = (JButton) arg0.getSource();
 					int index = 0;
-					for(int j = 0; j < deviceGroupBoxDig.length; j++){
-						if(sourceBtn.equals(deviceGroupBoxDig[j])){
+					for(int j = 0; j < okBtnDig.length; j++){
+						if(sourceBtn.equals(okBtnDig[j])){
 							index = j;
 						}
 					}
-					int method = methodBoxDig[index].getSelectedIndex();
-					boolean valid = true;
-					String inputVal = smValueFieldDig[index].getText();
-					String device = (String)deviceGroupBoxDig[index].getSelectedItem();
-					String prop = (String)propChanBoxDig[index].getSelectedItem();
-					String[] mapString = new String[]{};
-					switch(method){
-					
-						case Constants.FUNCTION:
-							mapString = new String[]{};
-							break;
-						case Constants.CERTAINCHANNEL:
-							mapString = new String[]{""+method,device,prop};
-							break;
-						case Constants.CHANNELPLUS:
-							mapString = new String[]{""+method,device};
-							break;
-						case Constants.CHANNELMINUS:
-							mapString = new String[]{""+method,device};
-							break;
-						case Constants.CERTAINPROP:
-							boolean isANumber = ScriptInterfaceWrapper.propertyTypeIsANumber(device,prop);
-							try{
-								Double.parseDouble(inputVal);
-								if(!isANumber){
-									valid = false;
-								}
-							}
-							catch(Exception e){
-								if(isANumber){
-									valid = false;
-								}
-							}
-							if(!valid){
-								ErrorPopup errorCertProp = new ErrorPopup("Sorry this value is not valid for "+device+"-"+prop+".");
-								errorCertProp.setVisible(true);
-							}
-							else{
-								mapString = new String[]{""+method,device,prop,inputVal};
-							}
-							break;
-						case Constants.PROPSTEP:
-							try{
-								Double.parseDouble(smValueFieldDig[index].getText());
-								Double.parseDouble(medValueFieldDig[index].getText());
-								Double.parseDouble(bigValueFieldDig[index].getText());
-							}
-							catch(Exception e){
-								valid = false;
-								ErrorPopup errorPropStep = new ErrorPopup("Your step values have to be numbers.");
-								errorPropStep.setVisible(true);
-							}
-							if(valid){
-								mapString = new String[]{""+method,device,prop,""+smValueFieldDig[index].getText(),""+medValueFieldDig[index].getText(),""+bigValueFieldDig[index].getText()};
-							}
-							//TODO finish this
-							//if(!valid || !(smValueFieldDig[index].get))
-							break;
+					ArdWindow.println(""+index);
+					if(okBtnDig[index].getText().equals(BTNSTRINCHANGE)){
+						okBtnDig[index].setText(BTNSTRINGOK);
+						okBtnDig[index].setEnabled(true);
+						okBtnDig[index].setVisible(true);
+						methodBoxDig[index].setEnabled(true);
+						deviceGroupFunctionBoxDig[index].setEnabled(true);
+						propChanBoxDig[index].setEnabled(true);
+						smValueFieldDig[index].setEnabled(true);
+						medValueFieldDig[index].setEnabled(true);
+						bigValueFieldDig[index].setEnabled(true);
+						map.put(index,new String[]{});
 					}
-					map.put(index, mapString);
+					else{
+						int method = methodBoxDig[index].getSelectedIndex();
+						boolean valid = true;
+						String inputVal = smValueFieldDig[index].getText();
+						String device = (String)deviceGroupFunctionBoxDig[index].getSelectedItem();
+						String prop = (String)propChanBoxDig[index].getSelectedItem();
+						String[] mapString = new String[]{};
+						switch(method){
+						
+							case Constants.FUNCTION:
+								String function = (String)deviceGroupFunctionBoxDig[index].getSelectedItem();
+								if(function.toLowerCase().equals("snap")){
+									try {
+										ScriptInterfaceWrapper.snapImage();
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+								if(function.toLowerCase().equals("live")){
+									
+								}
+								mapString = new String[]{};
+								break;
+							case Constants.CERTAINCHANNEL:
+								mapString = new String[]{""+method,device,prop};
+								break;
+							case Constants.CHANNELPLUS:
+								mapString = new String[]{""+method,device};
+								break;
+							case Constants.CHANNELMINUS:
+								mapString = new String[]{""+method,device};
+								break;
+							case Constants.CERTAINPROP:
+								boolean isANumber = ScriptInterfaceWrapper.propertyTypeIsANumber(device,prop);
+								try{
+									Double.parseDouble(inputVal);
+									if(!isANumber){
+										valid = false;
+									}
+								}
+								catch(Exception e){
+									if(isANumber){
+										valid = false;
+									}
+								}
+								//Special case: Input is a Number but MM doesnt see needed Input as number
+								
+								if(!valid){
+									ErrorPopup errorCertProp = new ErrorPopup("Sorry this value is not valid for "+device+"-"+prop+".");
+									errorCertProp.setVisible(true);
+								}
+								else{
+									mapString = new String[]{""+method,device,prop,inputVal};
+								}
+								break;
+							case Constants.PROPSTEP:
+								try{
+									Double.parseDouble(smValueFieldDig[index].getText());
+									Double.parseDouble(medValueFieldDig[index].getText());
+									Double.parseDouble(bigValueFieldDig[index].getText());
+								}
+								catch(Exception e){
+									valid = false;
+									ErrorPopup errorPropStep = new ErrorPopup("Your step values have to be numbers.");
+									errorPropStep.setVisible(true);
+								}
+								if(valid){
+									mapString = new String[]{""+method,device,prop,""+smValueFieldDig[index].getText(),""+medValueFieldDig[index].getText(),""+bigValueFieldDig[index].getText()};
+								}
+								
+								break;
+						}
+						if(valid){
+							map.put(index, mapString);
+							okBtnDig[index].setText(BTNSTRINCHANGE);
+							methodBoxDig[index].setEnabled(false);
+							deviceGroupFunctionBoxDig[index].setEnabled(false);
+							propChanBoxDig[index].setEnabled(false);
+							smValueFieldDig[index].setEnabled(false);
+							medValueFieldDig[index].setEnabled(false);
+							bigValueFieldDig[index].setEnabled(false);
+						}
+					}
 				}
 			});
-			panel.add(okBtnDig[i], "cell 6 "+ rownumber+",growx");
-			ArdWindow.println("1");
-			okBtnDig[i].setVisible(false);
-			ArdWindow.println("2");
-			okBtnDig[i].setEnabled(false);
-			ArdWindow.println("3");
-		}*/
+			panel.add(okBtnDig[i], "cell 7 "+ rownumber+",growx");
+			okBtnDig[i].setVisible(true);
+		}
 	}
 	
 	public HashMap<Integer,String[]> returnMappings(){
