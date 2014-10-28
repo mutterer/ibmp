@@ -46,7 +46,7 @@
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.Constants"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
 <fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
 </qualifiedTypeNameHistroy>

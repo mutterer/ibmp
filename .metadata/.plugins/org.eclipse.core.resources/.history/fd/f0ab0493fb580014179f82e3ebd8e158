@@ -1,7 +1,0 @@
-package src.org.micromanager.serialPortHandling;
-
-//import gnu.io.SerialPortEventListener;
-
-public class alksjdf implements SerialPortEventListener {
-
-}
