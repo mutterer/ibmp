@@ -1,0 +1,8 @@
+package src.org.micromanager.plugin;
+
+import java.io.*;
+
+public class FileManager {
+
+	
+}

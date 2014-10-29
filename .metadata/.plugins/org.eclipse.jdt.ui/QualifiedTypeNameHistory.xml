@@ -32,7 +32,6 @@
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
-<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperWindow"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
@@ -41,12 +40,22 @@
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperMessenger"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.util.Observer"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
 <fullyQualifiedTypeName name="mmcorej.StrVector"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.Constants"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
-<fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.ScriptInterfaceWrapper"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.FileManager"/>
+<fullyQualifiedTypeName name="javax.swing.JFileChooser"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectOutputStream"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.io.ObjectInputStream"/>
+<fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.Constants"/>
+<fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
 </qualifiedTypeNameHistroy>
