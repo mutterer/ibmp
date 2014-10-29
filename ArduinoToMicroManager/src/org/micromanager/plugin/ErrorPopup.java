@@ -6,16 +6,10 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
 
 import java.awt.Color;
-import java.awt.SystemColor;
-
-import javax.swing.UIManager;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,6 +18,10 @@ import net.miginfocom.swing.MigLayout;
 
 public class ErrorPopup extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 
 	public ErrorPopup(String message) {

@@ -5,13 +5,9 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Insets;
 
 import javax.swing.*;
 import java.awt.Color;
@@ -23,7 +19,6 @@ public class ArdWindow extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private MicroManagerPlugin mm;
 	private JTextArea textField;
 	private JScrollPane scroller;
 	private static TextAreaPrintStream ps;
@@ -38,8 +33,6 @@ public class ArdWindow extends JFrame {
 	 */
 	public ArdWindow(MicroManagerPlugin inputMM) {
 		setTitle("LOG");
-		mm = inputMM;
-		//TODO maybe put in close plugin thing
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

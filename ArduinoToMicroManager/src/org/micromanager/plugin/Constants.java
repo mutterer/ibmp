@@ -6,7 +6,7 @@ public class Constants {
 	public static final int CAPROUNDAMOUNT = 4;
 	
 	public static final int PINNUMBER = 10;
-	
+
 	public static final int FUNCTION = 0;
 	public static final int CERTAINCHANNEL = 1;
 	public static final int CHANNELPLUS = 2;
