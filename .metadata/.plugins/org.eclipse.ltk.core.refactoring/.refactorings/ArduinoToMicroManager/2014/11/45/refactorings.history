@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;pinLbl&apos; in &apos;src.org.micromanager.serialPortHandling.InputMapper.InputMapper()&apos; to &apos;pinLblDig&apos;&#x0D;&#x0A;- Original project: &apos;ArduinoToMicroManager&apos;&#x0D;&#x0A;- Original element: &apos;src.org.micromanager.serialPortHandling.InputMapper.InputMapper().pinLbl&apos;&#x0D;&#x0A;- Renamed element: &apos;pinLbl&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;pinLbl&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/&lt;src.org.micromanager.serialPortHandling{InputMapper.java[InputMapper~InputMapper@pinLbl!11163!11204!11172!11177!\[QJLabel;!0!false" name="pinLblDig" references="true" stamp="1415009433424" version="1.0"/>
+</session>
