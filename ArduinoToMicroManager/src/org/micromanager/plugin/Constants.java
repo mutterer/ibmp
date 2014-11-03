@@ -5,7 +5,7 @@ public class Constants {
 	// so that if you send MESSAGECAP - CAPROUNDAMOUNT you get MESSAGECAP same with 0
 	public static final int CAPROUNDAMOUNT = 4;
 	
-	public static final int PINNUMBER = 10;
+	//public static final int PINNUMBER = 10;
 
 	public static final int FUNCTION = 0;
 	public static final int CERTAINCHANNEL = 1;
