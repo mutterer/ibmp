@@ -43,10 +43,11 @@ public class InputMapper extends JFrame {
 	ArrayList<JComboBox> propertyBoxAnal;
 	ArrayList<JTextField> minValueFieldAnal;
 	ArrayList<JTextField> maxValueFieldAnal;
+	ArrayList<JLabel> lblAnal;
 	String[] deviceNames;
 	int analogRowNumbers = 0;
 
-	int digitalRowNumbers = 10;
+	int digitalRowNumbers = 0;
 	ArrayList<JComboBox> methodBoxDig;
 	ArrayList<JComboBox> deviceGroupFunctionBoxDig;
 	ArrayList<JComboBox> propChanBoxDig;
@@ -71,7 +72,7 @@ public class InputMapper extends JFrame {
 
 	HashMap<Integer, String[]> map;
 
-	private static final int FIRSTBLOCKSTART = 2;
+	private static final int FIRSTBLOCKSTART = 1;
 	private static final int SECONDBLOCKSTART = 10;
 
 	public InputMapper() {
@@ -145,9 +146,6 @@ public class InputMapper extends JFrame {
 		panel.add(loadBtn,"cell 7 2");
 		loadBtn.setVisible(true);
 		
-		/**
-		 * Analog Part Initialization
-		 */
 		JLabel lblDeviceName = new JLabel("Device-Name");
 		panel.add(lblDeviceName, "cell 1 1");
 
@@ -159,24 +157,7 @@ public class InputMapper extends JFrame {
 
 		JLabel lblMaxVal = new JLabel("Maximum Value");
 		panel.add(lblMaxVal, "cell 4 1");
-
-		JLabel lblA5 = new JLabel("A5");
-		panel.add(lblA5, "cell 0 " + FIRSTBLOCKSTART + ",alignx trailing");
-
-		JLabel lblA4 = new JLabel("A4");
-		panel.add(lblA4, "cell 0 " + (FIRSTBLOCKSTART + 1) + ",alignx trailing");
-
-		JLabel lblA3 = new JLabel("A3");
-		panel.add(lblA3, "cell 0 " + (FIRSTBLOCKSTART + 2) + ",alignx trailing");
-
-		JLabel lblA2 = new JLabel("A2");
-		panel.add(lblA2, "cell 0 " + (FIRSTBLOCKSTART + 3) + ",alignx trailing");
-
-		JLabel lblA1 = new JLabel("A1");
-		panel.add(lblA1, "cell 0 " + (FIRSTBLOCKSTART + 4) + ",alignx trailing");
-
-		JLabel lblA0 = new JLabel("A0");
-		panel.add(lblA0, "cell 0 " + (FIRSTBLOCKSTART + 5) + ",alignx trailing");
+				
 
 		// Doesnt Work because of buggy Core_ functions in
 		// scriptinterfacewrapper
@@ -185,14 +166,11 @@ public class InputMapper extends JFrame {
 		} catch (Exception e) {
 			deviceNames = new String[] {};
 		}
+		lblAnal = new ArrayList<JLabel>();
 		deviceBoxAnal = new ArrayList<JComboBox>();
 		propertyBoxAnal = new ArrayList<JComboBox>();
-		for (int i = 0; i < deviceBoxAnal.size(); i++) {
-		}
-
-		for (int i = 0; i < minValueFieldAnal.length; i++) {
-		}
-
+		minValueFieldAnal = new ArrayList<JTextField>();
+		maxValueFieldAnal = new ArrayList<JTextField>();
 		/**
 		 * Pin Part Initialization
 		 */
@@ -225,8 +203,8 @@ public class InputMapper extends JFrame {
 					+ (SECONDBLOCKSTART - 1));
 		}
 		okBtnDig = new ArrayList<JButton>();
-		
 		addDigitalRow();
+		addAnalogRow();
 	}
 	/*
 	/**
@@ -335,7 +313,13 @@ public class InputMapper extends JFrame {
 	}*/
 	
 	private void addAnalogRow(){
-
+		/**
+		 * label
+		 */
+		JLabel lblAnali = new JLabel("Analog"+analogRowNumbers);
+		lblAnal.add(lblAnali);
+		panel.add(lblAnali, "cell 0 " + (analogRowNumbers+1+FIRSTBLOCKSTART) + ",alignx trailing");
+		
 		/**
 		 *prop und dev box 
 		 */
@@ -354,28 +338,30 @@ public class InputMapper extends JFrame {
 				} catch (Exception e) {
 					props = new String[] {};
 				}
-				int index = 0;
-				for (int j = 0; j < deviceBoxAnal.size(); j++) {
-					if (box.equals(deviceBoxAnal.get(j))) {
-						index = j;
-					}
-				}
+				int index = deviceBoxAnal.indexOf(box);
+				try{
 				propertyBoxAnal.get(index).setModel(new DefaultComboBoxModel(
 						props));
+				}
+				catch(Exception e){
+					ArdWindow.print(e.toString());
+				}
 			}
 		});
-		panel.add(deviceBoxAnali, "cell 1 " + (analogRowNumbers+1) + ",growx");
-		panel.add(propertyBoxAnali, "cell 2 " +  (analogRowNumbers+1) + ",growx");
+		panel.add(deviceBoxAnali, "cell 1 " + (analogRowNumbers+1+FIRSTBLOCKSTART) + ",growx");
+		panel.add(propertyBoxAnali, "cell 2 " +  (analogRowNumbers+1+FIRSTBLOCKSTART) + ",growx");
+		propertyBoxAnal.add(propertyBoxAnali);
+		deviceBoxAnal.add(deviceBoxAnali);
 		
 		/**
 		 * 
 		 */
 		
-
 		JTextField minValueFieldAnali = new JTextField();
 		JTextField maxValueFieldAnali = new JTextField();
 		JButton okBtnAnali = new JButton(BTNSTRINGOK);
 
+		
 		okBtnAnali.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -464,13 +450,24 @@ public class InputMapper extends JFrame {
 					maxValueFieldAnal.get(index).setEnabled(false);
 					minValueFieldAnal.get(index).setEnabled(false);
 					okBtnAnal.get(index).setText(BTNSTRINCHANGE);
+					addAnalogRow();
 				}
 			}
 		});
-		panel.add(minValueFieldAnali, "cell 3 " + (analogRowNumbers+1) + ",growx");
-		panel.add(maxValueFieldAnali, "cell 4 " + (analogRowNumbers+1) + ",growx");
-		panel.add(okBtnAnal[i], "cell 5 " + rownumber + ",growx");
 		
+		try{
+			minValueFieldAnal.add(minValueFieldAnali);
+			maxValueFieldAnal.add(maxValueFieldAnali);
+		}
+		catch(Exception e){
+			ArdWindow.println(e.getMessage());
+			ArdWindow.print(e.getMessage());
+		}
+		okBtnAnal.add(okBtnAnali);
+		panel.add(minValueFieldAnali, "cell 3 " + (analogRowNumbers+1+FIRSTBLOCKSTART) + ",growx");
+		panel.add(maxValueFieldAnali, "cell 4 " + (analogRowNumbers+1+FIRSTBLOCKSTART) + ",growx");
+		panel.add(okBtnAnali, "cell 5 " + (analogRowNumbers+1+FIRSTBLOCKSTART) + ",growx");
+
 		analogRowNumbers++;
 		panel.repaint();
 	}
@@ -585,7 +582,7 @@ public class InputMapper extends JFrame {
 				}
 			}
 		});
-		panel.add(methodBoxDigi, "cell 1 " + (digitalRowNumbers+1) + ",growx");
+		panel.add(methodBoxDigi, "cell 1 " + (digitalRowNumbers+1+SECONDBLOCKSTART) + ",growx");
 		
 		/**
 		 * 
@@ -634,7 +631,7 @@ public class InputMapper extends JFrame {
 						propORchannel));
 			}
 		});
-		panel.add(deviceGroupFunctionBoxDigi, "cell 2 " + (digitalRowNumbers+1)
+		panel.add(deviceGroupFunctionBoxDigi, "cell 2 " + (digitalRowNumbers+1+SECONDBLOCKSTART)
 				+ ",growx");
 		deviceGroupFunctionBoxDig.add(deviceGroupFunctionBoxDigi);
 		deviceGroupFunctionBoxDigi.setVisible(true);
@@ -647,7 +644,7 @@ public class InputMapper extends JFrame {
 
 		JComboBox propChanBoxDigi;
 		propChanBoxDigi = new JComboBox();
-		panel.add(propChanBoxDigi, "cell 3 " + (digitalRowNumbers+1) + ",growx");
+		panel.add(propChanBoxDigi, "cell 3 " + (digitalRowNumbers+1+SECONDBLOCKSTART) + ",growx");
 		propChanBoxDig.add(propChanBoxDigi);
 		propChanBoxDigi.setVisible(false);
 		propChanBoxDigi.setEnabled(false);
@@ -659,21 +656,21 @@ public class InputMapper extends JFrame {
 
 		JTextField smValueFieldDigi;
 		smValueFieldDigi = new JTextField();
-		panel.add(smValueFieldDigi, "cell 4 " + (digitalRowNumbers+1) + ",growx");
+		panel.add(smValueFieldDigi, "cell 4 " + (digitalRowNumbers+1+SECONDBLOCKSTART) + ",growx");
 		smValueFieldDig.add(smValueFieldDigi);
 		smValueFieldDigi.setVisible(false);
 		smValueFieldDigi.setEnabled(false);
 		
 		JTextField medValueFieldDigi;
 		medValueFieldDigi = new JTextField();
-		panel.add(medValueFieldDigi, "cell 5 " + (digitalRowNumbers+1) + ",growx");
+		panel.add(medValueFieldDigi, "cell 5 " + (digitalRowNumbers+1+SECONDBLOCKSTART) + ",growx");
 		medValueFieldDig.add(medValueFieldDigi);
 		medValueFieldDigi.setVisible(false);
 		medValueFieldDigi.setEnabled(false);
 
 		JTextField bigValueFieldDigi;
 		bigValueFieldDigi = new JTextField();
-		panel.add(bigValueFieldDigi, "cell 6 " + (digitalRowNumbers+1) + ",growx");
+		panel.add(bigValueFieldDigi, "cell 6 " + (digitalRowNumbers+1+SECONDBLOCKSTART) + ",growx");
 		bigValueFieldDig.add(bigValueFieldDigi);
 		bigValueFieldDigi.setVisible(false);
 		bigValueFieldDigi.setEnabled(false);
@@ -796,7 +793,7 @@ public class InputMapper extends JFrame {
 				}
 			}
 		});
-		panel.add(okBtnDigi, "cell 7 " + (digitalRowNumbers+1) + ",growx");
+		panel.add(okBtnDigi, "cell 7 " + (digitalRowNumbers+1+SECONDBLOCKSTART) + ",growx");
 		okBtnDigi.setVisible(true);
 		
 		/**
@@ -804,9 +801,9 @@ public class InputMapper extends JFrame {
 		 */
 
 		JLabel pinLblDigi;
-		pinLblDigi = new JLabel("Digital" + (digitalRowNumbers+1));
+		pinLblDigi = new JLabel("Digital" + (digitalRowNumbers));
 		pinLblDig.add(pinLblDigi);
-		panel.add(pinLblDigi, "cell 0 " + (digitalRowNumbers+1));
+		panel.add(pinLblDigi, "cell 0 " + (digitalRowNumbers+1+SECONDBLOCKSTART));
 		
 		/**
 		 * end

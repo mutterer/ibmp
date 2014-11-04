@@ -1,7 +1,7 @@
 int aVals[6];
 unsigned long buttonTimes[11];
 unsigned long lastSendTime = millis();
-int cap = 900;
+int cap = 9000;
 
 void setup() {
   //NonLEDS
@@ -24,8 +24,12 @@ void loop() {
   
   //ports 0 and 1 are spamming
   //If a Place isn't taken it goes off if the one next to it goes off
-  for(int i = 2; i<=2; i++){
+    /*for(int i = 0; i<=13; i++){
+      digitalWrite(i,LOW);
+    }*/
+  for(int i = 3; i<=10; i++){
     if(digitalRead(i) == HIGH && millis() - buttonTimes[i] > 500){
+      
       int value = i*1000;
       buttonTimes[i] = millis();
       serialPrintln(String(value));

@@ -815,13 +815,4 @@ public class InputMapper extends JFrame {
 	public HashMap<Integer, String[]> returnMappings() {
 		return map;
 	}
-
-	private int arrayGetIndex(Object[] array, Object object) {
-		for (int i = 0; i < array.length; i++) {
-			if (array[i].equals(object)) {
-				return i;
-			}
-		}
-		return -1;
-	}
 }
