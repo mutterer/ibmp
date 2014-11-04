@@ -1,0 +1,12 @@
+Hardware configuration / other config -> both saved and changable
+zuweisung von sendern an adressen in serial reader ding
+adresse besteht aus gerät | Eingabe
+
+Erste Connection -> Ansagen -> Adresse zuweisen
+Erste Connection ansagen durch Benutzer
+-> Knopf "Neuer Knopf"  (-> 2Byte adresse)
+-> Eingabe wird registriert und einer Adresse zugewiesen im SerialListener/Connecter
+-> Im log erscheint Adresse wenn gedrückt -> zuweisung per eingabe in der richtigen zeile
+
+Alt.:
+Extra Dialog um Gerät hinzuzufügen
