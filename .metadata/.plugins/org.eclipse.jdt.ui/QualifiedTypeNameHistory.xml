@@ -33,7 +33,6 @@
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperWindow"/>
 <fullyQualifiedTypeName name="javax.swing.JTextField"/>
-<fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="javax.swing.JTextPane"/>
 <fullyQualifiedTypeName name="java.util.Observable"/>
 <fullyQualifiedTypeName name="src.org.micromanager.serialPortHandling.InputMapperMessenger"/>
@@ -53,9 +52,10 @@
 <fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
 <fullyQualifiedTypeName name="src.org.micromanager.plugin.ErrorPopup"/>
 <fullyQualifiedTypeName name="java.util.Iterator"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.Constants"/>
 <fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
 <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
-<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.ArdWindow"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="src.org.micromanager.plugin.Constants"/>
 </qualifiedTypeNameHistroy>

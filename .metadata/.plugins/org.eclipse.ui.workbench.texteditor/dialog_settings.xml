@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="ArdWindow" key="selection"/>
+		<item value="[6" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="true" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="[6"/>
+			<item value="ardWin"/>
+			<item value="&quot;A"/>
+			<item value="&quot;pin"/>
+			<item value="pin"/>
 			<item value="ardwindow"/>
-			<item value="digitalrown"/>
-			<item value="digitalgrown"/>
-			<item value="analogrown"/>
-			<item value="analogrow"/>
-			<item value="new array"/>
-			<item value="-13"/>
-			<item value="digitalrownumbers="/>
+			<item value="oncl"/>
+			<item value="devicegrou"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
