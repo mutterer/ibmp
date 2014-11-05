@@ -68,12 +68,28 @@ public class ScriptInterfaceWrapper {
 
 	public static boolean propertyTypeIsANumber(String label, String propName) {
 		// PropertyType properType;
+		boolean returnValue= false;
 		try {
 			Double.parseDouble(core_.getProperty(label, propName));
-			return true;
+			returnValue = true;
 		} catch (Exception e) {
-			return false;
-		}/*
+			returnValue = false;
+		}
+		int maxVal = 1;
+		int minVal = 1;
+		try{
+			maxVal = (int)Math.floor(core_.getPropertyUpperLimit(label, propName));
+			minVal = (int)Math.floor(core_.getPropertyLowerLimit(label, propName));
+		}
+		catch(Exception e){
+			returnValue = false;
+		}
+		if(maxVal == minVal){
+			returnValue = false;
+		}
+		return returnValue;
+		
+		/*
 		 * try { properType = core_.getPropertyType(label, propName); String
 		 * propertyType = properType.toString(); boolean numberTypeBool =
 		 * (propertyType.toLowerCase().equals("float")||

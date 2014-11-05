@@ -14,4 +14,6 @@ public class Constants {
 	public static final int CERTAINPROP = 4;
 	public static final int PROPSTEP = 5;
 	public static final int PROPDYNAMIC = 6;
+	public static final int PINNUMBERDIG = 10;
+	public static final int PINNUMBERANAL = 3;
 }

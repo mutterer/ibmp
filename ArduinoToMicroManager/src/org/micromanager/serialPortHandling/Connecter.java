@@ -10,6 +10,9 @@ public class Connecter implements Observer {
 
 	private MicroManagerPlugin microManager;
 	private InputMapper mapper;
+	private long initTime = 5000;
+	private long initTimeSaver;
+	private short[] blockedPins = new short[15];
 
 	final int SMALLSTEPS = 16;
 	final int MEDSTEPS = SMALLSTEPS + 1;
@@ -20,6 +23,7 @@ public class Connecter implements Observer {
 
 	public Connecter(MicroManagerPlugin mm) {
 
+		initTimeSaver = System.currentTimeMillis();
 		microManager = mm;
 		mapper = new InputMapper();
 		mapper.setVisible(true);
@@ -52,11 +56,15 @@ public class Connecter implements Observer {
 		try {
 			signal = Integer.parseInt((String) signalObject);
 			buttonNR = (int) Math.floor(signal / 1000);
-			ArdWindow.println("btnnr: " + buttonNR);
+			if(initTimeSaver+initTime > System.currentTimeMillis()){
+				blockedPins[buttonNR]++;
+			}
+			if(!(blockedPins[buttonNR]>1))
+				ArdWindow.println((buttonNR<10?"Digital ":"Analog ") + buttonNR);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 			ArdWindow
-					.println("Signal was not a number in [Connecter.update()]");
+					.println("invalid Input");
 			// make Signal a Number if it isn't
 			signal = 10001;
 		}
@@ -65,9 +73,11 @@ public class Connecter implements Observer {
 			commandInt = Integer.parseInt(mappings.get(buttonNR)[0]);
 		} catch (Exception e) {
 			e.printStackTrace();
+			//FIXME
+			/* DEBUG
 			ArdWindow
 					.println("Didnt manage to parse String to Int in [Connecter.update()]");
-			ArdWindow.println("Maybe you haven't configured this input");
+			ArdWindow.println("Maybe you haven't configured this input");*/
 		}
 		String[] args = mappings.get(buttonNR);
 		switch (commandInt) {
