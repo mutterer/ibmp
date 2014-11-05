@@ -27,8 +27,8 @@ void loop() {
     /*for(int i = 0; i<=13; i++){
       digitalWrite(i,LOW);
     }*/
-  for(int i = 3; i<=10; i++){
-    if(digitalRead(i) == HIGH && millis() - buttonTimes[i] > 500){
+  for(int i = 0; i<=9; i++){
+    if(digitalRead(i) == HIGH && millis() - buttonTimes[i] > 400){
       
       int value = i*1000;
       buttonTimes[i] = millis();
@@ -89,7 +89,7 @@ void loop() {
   
   void serialPrintln(String msg){
     int msgPerSecond = 15;
-    if(millis()-lastSendTime > 1000/msgPerSecond){
+    if(millis()-lastSendTime > 1000/msgPerSecond || millis() < 2000){
        Serial.println(msg); 
        lastSendTime = millis();
     }
