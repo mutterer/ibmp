@@ -30,7 +30,7 @@ void loop() {
   for(int i = 0; i<=9; i++){
     if(digitalRead(i) == HIGH && millis() - buttonTimes[i] > 400){
       
-      int value = i*1000;
+      String value = String(i)+",0";
       buttonTimes[i] = millis();
       serialPrintln(String(value));
     }
@@ -48,42 +48,42 @@ void loop() {
     if(aVals[0] > cap){
       aVals[0] = cap;
     }
-    serialPrintln(String((10*1000) + aVals[0]));
+    serialPrintln("10," + String(aVals[0]));
   }/*
     if(!(analogRead(A1) - aVals[1] <2 && analogRead(A1) - aVals[1] > -2)){
     aVals[1] = analogRead(A1);
     if(aVals[1] > cap){
       aVals[1] = cap;
     }
-    Serial.println(String((11*1000) + aVals[1]));
+    Serial.println("11," + String(aVals[1]));
   }
     if(!(analogRead(A2) - aVals[2] <2 && analogRead(A2) - aVals[2] > -2)){
     aVals[2] = analogRead(A2);
     if(aVals[2] > cap){
       aVals[2] = cap;
     }
-    Serial.println(String((12*1000) + aVals[2]));
+    Serial.println("12," + String(aVals[2]));
   }
     if(!(analogRead(A3) - aVals[3] <2 && analogRead(A3) - aVals[3] > -2)){
     aVals[3] = analogRead(A3);
     if(aVals[3] > cap){
       aVals[3] = cap;
     }
-    Serial.println(String((13*1000) + aVals[3]));
+    Serial.println("13," + String(aVals[3]));
   }
     if(!(analogRead(A4) - aVals[4] <2 && analogRead(A4) - aVals[4] > -2)){
     aVals[4] = analogRead(A4);
     if(aVals[4] > cap){
       aVals[4] = cap;
     }
-    Serial.println(String((14*10000) + aVals[4]));
+    Serial.println("14," + String(aVals[4]));
   }
     if(!(analogRead(A5) - aVals[5] <2 && analogRead(A5) - aVals[5] > -2)){
     aVals[5] = analogRead(A5);
     if(aVals[5] > cap){
       aVals[5] = cap;
     }
-    Serial.println(String((15*1000) + aVals[5]));
+    Serial.println("15," + String(aVals[5]));
   }*/
   }
   
