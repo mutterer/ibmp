@@ -18,6 +18,22 @@ public class ScriptInterfaceWrapper {
 		StrVector vec = core_.getDevicePropertyNames(label);
 		return strVectorToStrArray(vec);
 	}
+	
+	public static String[] getNumberDeviceNames() throws Exception{
+		String[] devicesArray = getDeviceNames();
+		ArrayList<String> devices = new ArrayList<String>();
+		for(int i = 0; i < devicesArray.length; i++){
+			String[] properties = getDeviceNumberPropertyNames(devicesArray[i]);
+			if(properties.length>0){
+				devices.add(devicesArray[i]);
+			}
+		}
+		devicesArray = new String[devices.size()];
+		for(int i = 0; i < devicesArray.length; i++){
+			devicesArray[i] = devices.get(i);
+		}
+		return devicesArray;
+	}
 
 	public static String getPropertyValue(String label, String propName)
 			throws Exception {

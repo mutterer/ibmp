@@ -16,4 +16,5 @@ public class Constants {
 	public static final int PROPDYNAMIC = 6;
 	public static final int PINNUMBERDIG = 10;
 	public static final int PINNUMBERANAL = 3;
+	public static final String DATATYPE = ".ar";
 }

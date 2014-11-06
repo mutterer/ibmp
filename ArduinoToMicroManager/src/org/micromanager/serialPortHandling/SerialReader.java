@@ -28,7 +28,7 @@ public class SerialReader extends Observable implements SerialPortEventListener{
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 	
-	private String serialInput;
+	private String[] serialInput;
 
 	private Thread listenerThread;
 	
@@ -109,7 +109,8 @@ public class SerialReader extends Observable implements SerialPortEventListener{
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-					serialInput=input.readLine();
+					serialInput=input.readLine().split(",");
+					serialInput = new String[]{"","",serialInput[0],serialInput[1]};
 					System.out.println(serialInput);
 					//FIXME DEBUG ArdWindow.print("Sending..");
 					setChanged();

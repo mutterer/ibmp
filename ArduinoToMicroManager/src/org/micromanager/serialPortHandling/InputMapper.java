@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileFilter;
 
 import java.awt.GridLayout;
 
@@ -66,6 +67,7 @@ public class InputMapper extends JFrame {
 	private static final int BLOCKDISTANCE = 1;
 	private static final int FIRSTBLOCKSTART = 2;
 	private static final int SECONDBLOCKSTART = FIRSTBLOCKSTART + Constants.PINNUMBERANAL + BLOCKDISTANCE;
+	private JTextField txtFLastPressedBtn;
 
 	public InputMapper() {
 		map = new HashMap<Integer, String[]>();
@@ -82,14 +84,31 @@ public class InputMapper extends JFrame {
 				"",
 				"[][82.00,grow][grow][][]",
 				"[grow][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00][][24.00][24.00][24.00][24.00][24.00][24.00][24.00][24.00]"));
-
-		saveBtn = new JButton("Save");
+		
+		fm.setFileFilter(new FileFilter() {
+			@Override
+			public String getDescription() {
+				return "Arduino Remote Files";
+			}
+			@Override
+			public boolean accept(File f) {
+				if(f.getName().toLowerCase().endsWith(".ar")|| f.isDirectory())
+					return true;
+				return false;
+			}
+		});
+		saveBtn = new JButton("Save Config");
 		saveBtn.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int value = fm.showSaveDialog(InputMapper.this);
 				if(value == JFileChooser.APPROVE_OPTION){
 					File file = fm.getSelectedFile();
+					String fileName = file.getPath();
+					if(!fileName.endsWith(Constants.DATATYPE)){
+						fileName += Constants.DATATYPE;
+					}
+					file = new File(fileName);
 					FileOutputStream fileOps;
 					ObjectOutputStream objObs;
 					try {
@@ -106,15 +125,18 @@ public class InputMapper extends JFrame {
 				}
 			}
 		});
+		
+		JLabel lblLastPressedButton = new JLabel("Last Pressed Button ID:");
+		panel.add(lblLastPressedButton, "flowx,cell 1 0");
 		panel.add(saveBtn,"cell 7 1");
 		saveBtn.setVisible(true);
 		
-		loadBtn = new JButton("Load");
+		loadBtn = new JButton("Load Config");
 		loadBtn.addMouseListener(new MouseAdapter() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void mouseClicked(MouseEvent arg0){
-				int value = fm.showSaveDialog(InputMapper.this);
+				int value = fm.showOpenDialog(InputMapper.this);
 				if(value == JFileChooser.APPROVE_OPTION){
 					File file = fm.getSelectedFile();
 					FileInputStream fileIps;
@@ -123,6 +145,7 @@ public class InputMapper extends JFrame {
 						fileIps = new FileInputStream(file);
 						objIps = new ObjectInputStream(fileIps);
 						map = (HashMap<Integer,String[]>) objIps.readObject();
+						ArdWindow.println(""+(map.isEmpty()));
 						guiToMap();
 					} 
 					catch(ClassNotFoundException e){
@@ -153,6 +176,11 @@ public class InputMapper extends JFrame {
 		JLabel lblMaxVal = new JLabel("Maximum Value");
 		panel.add(lblMaxVal, "cell 4 "+(FIRSTBLOCKSTART-1));
 		
+		txtFLastPressedBtn = new JTextField();
+		txtFLastPressedBtn.setEnabled(false);
+		panel.add(txtFLastPressedBtn, "cell 1 0");
+		txtFLastPressedBtn.setColumns(10);
+		
 		lblAnal = new JLabel[3];
 		//TODO
 		for(int i = 0; i <lblAnal.length; i++){
@@ -164,14 +192,21 @@ public class InputMapper extends JFrame {
 		// scriptinterfacewrapper
 		String[] deviceNames;
 		try {
-			deviceNames = ScriptInterfaceWrapper.getDeviceNames();
+			deviceNames = ScriptInterfaceWrapper.getNumberDeviceNames();
 		} catch (Exception e) {
 			deviceNames = new String[] {};
+		}
+		String[] propertyNames;
+		try{
+			propertyNames = ScriptInterfaceWrapper.getDeviceNumberPropertyNames(deviceNames[0]);
+		}
+		catch(Exception e){
+			propertyNames = new String[]{};
 		}
 		deviceBoxAnal = new JComboBox[Constants.PINNUMBERANAL];
 		propertyBoxAnal = new JComboBox[Constants.PINNUMBERANAL];
 		for (int i = 0; i < deviceBoxAnal.length; i++) {
-			propertyBoxAnal[i] = new JComboBox();
+			propertyBoxAnal[i] = new JComboBox(propertyNames);
 			deviceBoxAnal[i] = new JComboBox(deviceNames);
 			int rownumber = (i * -1) + deviceBoxAnal.length + 1;
 			deviceBoxAnal[i].addItemListener(new ItemListener() {
@@ -226,9 +261,13 @@ public class InputMapper extends JFrame {
 					boolean minVGood = true;
 					boolean maxVGood = true;
 					boolean maxMinNumbers = true;
+					boolean maxMinGoodOrder = true;
 					double minVal = -1;
 					double maxVal = -1;
 					try {
+						if(Integer.parseInt(minV) > Integer.parseInt(maxV)){
+							maxMinGoodOrder = false;
+						}
 						minVGood = Integer.parseInt(minV) >= ScriptInterfaceWrapper
 								.propertyMinValue(device, prop);
 						maxVGood = Integer.parseInt(maxV) <= ScriptInterfaceWrapper
@@ -261,8 +300,10 @@ public class InputMapper extends JFrame {
 						okBtnAnal[index].setText(BTNSTRINGOK);
 						map.put(index + 10, new String[] {});
 					} else if (!(isAProperty && isAValidProperty && minVGood
-							&& maxVGood && maxMinNumbers)) {
+							&& maxVGood && maxMinNumbers && maxMinGoodOrder)) {
 						String message = "Something went wrong: " + "\n \n";
+						message += maxMinGoodOrder? ""
+								: "-Your minimal value cannot be higher than your maximum value";
 						message += isAProperty ? ""
 								: "-Your property does not exist " + "\n";
 						message += isAValidProperty ? ""
@@ -404,7 +445,7 @@ public class InputMapper extends JFrame {
 					if (method.equals("Prop Step")) {
 						try {
 							String[] devices = ScriptInterfaceWrapper
-									.getDeviceNames();
+									.getNumberDeviceNames();
 							deviceGroupFunctionBoxDig[index]
 									.setModel(new DefaultComboBoxModel(devices));
 							propChanBoxDig[index].setModel(new DefaultComboBoxModel(
@@ -648,15 +689,24 @@ public class InputMapper extends JFrame {
 	 * this is Arduino Uno specific
 	 */
 	public void guiToMap(){
-		for(int i = 0; i<10; i++){
-			deviceGroupFunctionBoxDig[i].setEnabled(false);
+		ArdWindow.println("Im in");
+		for(int i = 0; i<Constants.PINNUMBERDIG; i++){
+			methodBoxDig[i].setEnabled(true);
+			methodBoxDig[i].setVisible(true);
+			deviceGroupFunctionBoxDig[i].setVisible(true);
+			deviceGroupFunctionBoxDig[i].setEnabled(true);
+			propChanBoxDig[i].setVisible(false);
 			propChanBoxDig[i].setEnabled(false);
+			smValueFieldDig[i].setVisible(false);
 			smValueFieldDig[i].setEnabled(false);
+			medValueFieldDig[i].setVisible(false);
 			medValueFieldDig[i].setEnabled(false);
-			bigValueFieldDig[i].setEnabled(true);
+			bigValueFieldDig[i].setVisible(false);
+			bigValueFieldDig[i].setEnabled(false);
 			okBtnDig[i].setText(BTNSTRINGOK);
 		}
-		for(int i = 0; i <=5; i++){
+		ArdWindow.println("second loop");
+		for(int i = 0; i <Constants.PINNUMBERANAL; i++){
 			deviceBoxAnal[i].setEnabled(true);
 			propertyBoxAnal[i].setEnabled(true);
 			minValueFieldAnal[i].setEnabled(true);
@@ -710,12 +760,14 @@ public class InputMapper extends JFrame {
 						deviceGroupFunctionBoxDig[key].setVisible(true);
 						deviceGroupFunctionBoxDig[key].setEnabled(false);
 						deviceGroupFunctionBoxDig[key].setSelectedItem(mapString[1]);					
+						okBtnDig[key].setText(BTNSTRINCHANGE);					
 						
 						break;
 					case Constants.FUNCTION:
 						deviceGroupFunctionBoxDig[key].setEnabled(false);
 						deviceGroupFunctionBoxDig[key].setVisible(true);
-						deviceGroupFunctionBoxDig[key].setSelectedItem(mapString[1]);
+						deviceGroupFunctionBoxDig[key].setSelectedItem(mapString[1]);					
+						okBtnDig[key].setText(BTNSTRINCHANGE);
 						break;
 					case Constants.PROPSTEP:
 						deviceGroupFunctionBoxDig[key].setEnabled(false);
@@ -727,7 +779,8 @@ public class InputMapper extends JFrame {
 						medValueFieldDig[key].setText(mapString[3]);
 						bigValueFieldDig[key].setText(mapString[3]);
 						medValueFieldDig[key].setEnabled(false);
-						bigValueFieldDig[key].setEnabled(false);
+						bigValueFieldDig[key].setEnabled(false);					
+						okBtnDig[key].setText(BTNSTRINCHANGE);
 						break;
 				}
 				okBtnDig[key].setText(BTNSTRINCHANGE);
@@ -775,6 +828,10 @@ public class InputMapper extends JFrame {
 
 	public HashMap<Integer, String[]> returnMappings() {
 		return map;
+	}
+	
+	public void setLastBtnPress(String id){
+		txtFLastPressedBtn.setText(id);
 	}
 
 	private int arrayGetIndex(Object[] array, Object object) {

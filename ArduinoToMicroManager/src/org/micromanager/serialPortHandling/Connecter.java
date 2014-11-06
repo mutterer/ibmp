@@ -46,38 +46,44 @@ public class Connecter implements Observer {
 	 * 
 	 * Values SenDed: ButtonMapValue*1000 + (Value if Analog) value geHt vOn 0 -
 	 * MESSGAGECAP in Constants
+	 * 
+	 * The Transmission Code:
+	 * Short Array:
+	 * 2 BtnNR
+	 * 3 Value
 	 */
 	public void update(Observable object, Object signalObject) {
 		HashMap<Integer, String[]> mappings = mapper.returnMappings();
 		// if you get a signal convert it with the hashmap
+		//SignalObject should be a String Array
 		int commandInt = -1;
 		int buttonNR = -1;
-		int signal;
+		String[] signal = new String[4];
 		try {
-			signal = Integer.parseInt((String) signalObject);
-			buttonNR = (int) Math.floor(signal / 1000);
+			signal = (String[]) signalObject;
+			buttonNR = Integer.parseInt(signal[2]);
 			if(initTimeSaver+initTime > System.currentTimeMillis()){
 				blockedPins[buttonNR]++;
 			}
-			if(!(blockedPins[buttonNR]>1))
-				ArdWindow.println((buttonNR<10?"Digital ":"Analog ") + buttonNR);
+			if(!(blockedPins[buttonNR]>1)){
+				String btnID = (buttonNR<10?"Digital ":"Analog ") + buttonNR;
+				ArdWindow.println(btnID);
+				mapper.setLastBtnPress(btnID);
+			}
 		} catch (Exception e2) {
 			e2.printStackTrace();
+			ArdWindow.print(e2.getMessage());
 			ArdWindow
 					.println("invalid Input");
 			// make Signal a Number if it isn't
-			signal = 10001;
+			signal[2] = "1";
+			signal[3] = "1";
 		}
 		try {
 			// Retrieve Function of Button from HashMap
 			commandInt = Integer.parseInt(mappings.get(buttonNR)[0]);
 		} catch (Exception e) {
 			e.printStackTrace();
-			//FIXME
-			/* DEBUG
-			ArdWindow
-					.println("Didnt manage to parse String to Int in [Connecter.update()]");
-			ArdWindow.println("Maybe you haven't configured this input");*/
 		}
 		String[] args = mappings.get(buttonNR);
 		switch (commandInt) {
@@ -120,19 +126,24 @@ public class Connecter implements Observer {
 			break;
 		case Constants.PROPDYNAMIC:
 			// input Value
-			int valueSignal = signal - 1000 * (int) (Math.floor(signal / 1000));
-			// border handling
-			if (valueSignal <= Constants.CAPROUNDAMOUNT)
-				valueSignal = 0;
-			else if (valueSignal >= Constants.MESSAGECAP
-					- Constants.CAPROUNDAMOUNT)
-				valueSignal = Constants.MESSAGECAP;
-			double factor = Integer.parseInt(args[4])
-					- Integer.parseInt(args[3]);
-			factor /= Constants.MESSAGECAP;
-			// output Value
-			double valueMM = (valueSignal * factor) + Integer.parseInt(args[3]);
-			microManager.setProperty(args[1], args[2], "" + valueMM);
+			try{
+				int valueSignal = Integer.parseInt(signal[3]);
+				// border handling
+				if (valueSignal <= Constants.CAPROUNDAMOUNT)
+					valueSignal = 0;
+				else if (valueSignal >= Constants.MESSAGECAP
+						- Constants.CAPROUNDAMOUNT)
+					valueSignal = Constants.MESSAGECAP;
+				double factor = Integer.parseInt(args[4])
+						- Integer.parseInt(args[3]);
+				factor /= Constants.MESSAGECAP;
+				// output Value
+				double valueMM = (valueSignal * factor) + Integer.parseInt(args[3]);
+				microManager.setProperty(args[1], args[2], "" + valueMM);
+			}
+			catch(Exception e){
+				ArdWindow.print(e.getMessage());
+			}
 			break;
 		case BIGSTEPS:
 			stepSize = BIGSTEPS - STEPCOMPENSATIONVALUE;
