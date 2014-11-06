@@ -2,11 +2,14 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+
 import gnu.io.CommPortIdentifier; 
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent; 
 import gnu.io.SerialPortEventListener; 
+
 import java.util.Enumeration;
+
 import View.GUI;
 
 
@@ -85,12 +88,13 @@ public class SerialReader implements SerialPortEventListener {
 	public synchronized void serialEvent(SerialPortEvent oEvent) {
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
 			try {
-				String inputLine=input.readLine();
+				String[] inputLine=input.readLine().split(",");
+				inputLine = new String[]{"","",inputLine[0],inputLine[1]};
 				if(inputLine.equals("off")){
 					this.close();
 				}
 				System.out.println(inputLine);
-				reciever.printMsg(inputLine);
+				reciever.printMsg(inputLine[2]);
 			} catch (Exception e) {
 				System.err.println(e.toString());
 			}
